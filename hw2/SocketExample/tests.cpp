@@ -135,7 +135,7 @@ void *display(void *ptr)
         //cvtColor(img, imgGray, CV_BGR2GRAY);
 
         //send processed image
-        if ((bytes = send(socket, imgGray.data, imgSize, 0)) < 0)
+        if ((bytes = send(socket, img.data, imgSize, 0)) < 0)
         {
             std::cerr << "bytes = " << bytes << std::endl;
             break;
