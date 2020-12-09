@@ -5,7 +5,7 @@
 #include <arpa/inet.h>
 #include <sys/ioctl.h>
 #include <net/if.h>
-#include <unistd.h> 
+#include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
 #include "opencv2/opencv.hpp"
@@ -14,27 +14,32 @@
 
 using namespace std;
 using namespace cv;
-int main(int argc, char** argv){
+int main(int argc, char **argv)
+{
 
-/*setting start*/
+    /*setting start*/
     int localSocket, port = 4097;
     int remoteSocket = -2;
 
-    if(argc<2){
-	cout<<"Command not found.\n";
-    }else{
-	port = atoi(argv[1]);
+    if (argc < 2)
+    {
+        cout << "Command not found.\n";
+    }
+    else
+    {
+        port = atoi(argv[1]);
     }
 
-    int recved;                               
+    int recved;
 
-    struct  sockaddr_in localAddr,remoteAddr;
-          
-    int addrLen = sizeof(struct sockaddr_in);  
+    struct sockaddr_in localAddr, remoteAddr;
 
-    localSocket = socket(AF_INET , SOCK_STREAM , 0);
-    
-    if (localSocket == -1){
+    int addrLen = sizeof(struct sockaddr_in);
+
+    localSocket = socket(AF_INET, SOCK_STREAM, 0);
+
+    if (localSocket == -1)
+    {
         printf("socket() call failed!!");
         return 0;
     }
@@ -45,133 +50,126 @@ int main(int argc, char** argv){
 
     char Message[BUFF_SIZE] = {};
 
+    if (bind(localSocket, (struct sockaddr *)&localAddr, sizeof(localAddr)) < 0)
+    {
+        printf("Can't bind() socket");
+        return 0;
+    }
 
-        
-        if( bind(localSocket,(struct sockaddr *)&localAddr , sizeof(localAddr)) < 0) {
-            printf("Can't bind() socket");
-            return 0;
-        }
-        
-        listen(localSocket , 3);
+    listen(localSocket, 3);
 
+    /*setting end*/
 
-/*setting end*/
+    while (1)
+    {
+        int sent;
+        std::cout << "Waiting for connections...\n"
+                  << "Server Port:" << port << std::endl;
 
+        if (remoteSocket == -2)
+            remoteSocket = accept(localSocket, (struct sockaddr *)&remoteAddr, (socklen_t *)&addrLen);
 
-    while(1){
-	int sent;    
-        std::cout <<  "Waiting for connections...\n"
-                <<  "Server Port:" << port << std::endl;
-
-	if(remoteSocket==-2)
-            remoteSocket = accept(localSocket, (struct sockaddr *)&remoteAddr, (socklen_t*)&addrLen);  
-        
-        if (remoteSocket < 0) {
+        if (remoteSocket < 0)
+        {
             printf("accept failed!");
             return 0;
         }
-                
+
         std::cout << "Connection accepted" << std::endl;
 
-
-/*receive command*/
+        /*receive command*/
         char receiveMessage[BUFF_SIZE] = {};
-        
-        bzero(receiveMessage,sizeof(char)*BUFF_SIZE);
-        if ((recved = recv(remoteSocket,receiveMessage,sizeof(char)*BUFF_SIZE,0)) < 0){
+
+        bzero(receiveMessage, sizeof(char) * BUFF_SIZE);
+        if ((recved = recv(remoteSocket, receiveMessage, sizeof(char) * BUFF_SIZE, 0)) < 0)
+        {
             cout << "recv failed, with received bytes = " << recved << endl;
             break;
         }
-        else if (recved == 0){
+        else if (recved == 0)
+        {
             cout << "<end>\n";
             break;
         }
-        printf("word len: %d: %s\n",recved,receiveMessage);
+        printf("word len: %d: %s\n", recved, receiveMessage);
 
+        /*check commands*/
+        if (strncmp("ls", receiveMessage, 2) == 0)
+        {
+            cout << "recived: " << receiveMessage << "\n";
+            // sent = send(remoteSocket,Message,strlen(Message),0);
+        }
+        else if (strncmp("play", receiveMessage, 4) == 0)
+        {
 
+            // server
 
+            Mat imgServer;
+            bzero(receiveMessage, sizeof(char) * BUFF_SIZE);
 
+            recv(remoteSocket, receiveMessage, sizeof(char) * BUFF_SIZE, 0);
+            cout << "videoname: " << receiveMessage << "\n";
+            VideoCapture cap("./tmp.mpg");
 
-      /*check commands*/
-    	if(strncmp("ls",receiveMessage,2)==0){
-	   cout<<"recived: "<<receiveMessage<<"\n";
-          // sent = send(remoteSocket,Message,strlen(Message),0);	
+            // get the resolution of the video
+            int width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+            int height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+            cout << width << ", " << height << endl;
 
-    	}else if(strncmp("play",receiveMessage,4)==0){
-	   
+            //allocate container to load frames
 
-	    // server
-	    
+            imgServer = Mat::zeros(height, width, CV_8UC3);
 
-	    Mat imgServer;
-            bzero(receiveMessage,sizeof(char)*BUFF_SIZE);
+            sprintf(Message, "%d", width);
+            sent = send(remoteSocket, Message, strlen(Message), 0);
+            bzero(Message, sizeof(char) * BUFF_SIZE);
 
-	    recv(remoteSocket,receiveMessage,sizeof(char)*BUFF_SIZE,0);
-	    cout<<"videoname: "<<receiveMessage<<"\n";
-    	    VideoCapture cap("./tmp.mpg");
+            sprintf(Message, "%d", height);
+            sent = send(remoteSocket, Message, strlen(Message), 0);
 
-    	    // get the resolution of the video
-	    int width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
-    	    int height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
-    	    cout  << width << ", " << height << endl;
-
-    	    //allocate container to load frames 
-	    
-	    
-    
-    	    imgServer = Mat::zeros(height, width, CV_8UC3);
-
-	    
-	    
-	    sprintf(Message,"%d",width);
-	    sent = send(remoteSocket,Message,strlen(Message),0);
-            bzero(Message,sizeof(char)*BUFF_SIZE);
- 
-	    sprintf(Message,"%d",height);
-	    sent = send(remoteSocket,Message,strlen(Message),0);
-
-	    // ensure the memory is continuous (for efficiency issue.)
-	    if(!imgServer.isContinuous()){
-	         imgServer = imgServer.clone();
-	    }
-
-
-	    while(1){
-            //get a frame from the video to the container on server.
-            cap >> imgServer;
-
-            // get the size of a frame in bytes 
-            int imgSize = imgServer.total() * imgServer.elemSize();
-	    bzero(Message,sizeof(char)*BUFF_SIZE);
-
-	    sprintf(Message,"%d",imgSize);
-            sent = send(remoteSocket,Message,strlen(Message),0);
-
-            // allocate a buffer to load the frame (there would be 2 buffers in the world of the Internet)
-            char buffer[imgSize];
-
-            // copy a frame to the buffer
-            memcpy(buffer,imgServer.data, imgSize);
-
-            sent = send(remoteSocket,buffer,strlen(buffer),0);
+            // ensure the memory is continuous (for efficiency issue.)
+            if (!imgServer.isContinuous())
+            {
+                imgServer = imgServer.clone();
             }
 
-        
-    	}else if(strncmp("put" ,receiveMessage,3)==0){
-        	
-    	}else if(strncmp("get" ,receiveMessage,3)==0){
-        	
-    	}else if(strncmp("close",receiveMessage,5)==0){
-	    close(remoteSocket);
-            remoteSocket=-2;
-            cout<<"close Socket.\n\n";
-    
-	}else{
-            cout<<"Command not found.\n";   
-    	}
- 
+            while (1)
+            {
+                //get a frame from the video to the container on server.
+                cap >> imgServer;
 
-       
+                // get the size of a frame in bytes
+                int imgSize = imgServer.total() * imgServer.elemSize();
+                bzero(Message, sizeof(char) * BUFF_SIZE);
+
+                sprintf(Message, "%d", imgSize);
+                sent = send(remoteSocket, Message, strlen(Message), 0);
+
+                // allocate a buffer to load the frame (there would be 2 buffers in the world of the Internet)
+                char buffer[imgSize];
+
+                // copy a frame to the buffer
+                memcpy(buffer, imgServer.data, imgSize);
+
+                sent = send(remoteSocket, buffer, strlen(buffer), 0);
+            }
+        }
+        else if (strncmp("put", receiveMessage, 3) == 0)
+        {
+        }
+        else if (strncmp("get", receiveMessage, 3) == 0)
+        {
+        }
+        else if (strncmp("close", receiveMessage, 5) == 0)
+        {
+            close(remoteSocket);
+            remoteSocket = -2;
+            cout << "close Socket.\n\n";
+        }
+        else
+        {
+            cout << "Command not found.\n";
+        }
     }
     return 0;
 }
