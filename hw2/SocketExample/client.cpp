@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
                 if ((recved = recv(localSocket, imgClient.data, imgSize, MSG_WAITALL)) == -1)
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
-                }else if ((recved== 0))
+                }else if ((recved== 1))
                 {
                     destroyAllWindows();
                 }
