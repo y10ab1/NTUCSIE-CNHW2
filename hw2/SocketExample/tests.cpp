@@ -19,7 +19,7 @@ void *display(void *);
 
 int capDev = 0;
 
-VideoCapture cap(capDev); // open the default camera
+VideoCapture cap("./tmp.mpg"); // open the default camera
 
 int main(int argc, char **argv)
 {
