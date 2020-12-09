@@ -105,7 +105,7 @@ void *display(void *ptr)
     //----------------------------------------------------------
 
     Mat img, imgGray;
-    img = Mat::zeros(540, 960, CV_8UC1);
+    img = Mat::zeros(540, 960, CV_8UC3);
     //make it continuous
     if (!img.isContinuous())
     {

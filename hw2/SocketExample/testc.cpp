@@ -51,7 +51,7 @@ int main(int argc, char **argv)
     //----------------------------------------------------------
 
     Mat img;
-    img = Mat::zeros(540, 960, CV_8UC1);
+    img = Mat::zeros(540, 960, CV_8UC3);
     int imgSize = img.total() * img.elemSize();
     uchar *iptr = img.data;
     int bytes = 0;
