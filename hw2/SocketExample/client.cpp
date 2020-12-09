@@ -67,11 +67,11 @@ int main(int argc, char *argv[])
         }
         else if (strncmp("play", Message, 4) == 0)
         {
-            sent = send(localSocket, Message, strlen(Message), 0);
+            sent = send(localSocket, Message, strlen(Message), MSG_WAITALL);
             bzero(Message, sizeof(char) * BUFF_SIZE);
             sleep(2);
             cin >> Message; //video file name
-            sent = send(localSocket, Message, strlen(Message), 0);
+            sent = send(localSocket, Message, strlen(Message), MSG_WAITALL);
 
             // get the resolution of the video
             Mat imgClient;

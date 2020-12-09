@@ -143,7 +143,7 @@ int main(int argc, char **argv)
                 {
                     cerr << "bytes = " << sent << endl;
                     char tmp[1]={};
-		    tmp[0]='E';
+		            tmp[0]='E';
                     send(remoteSocket, tmp, 1, 0);
                     break;
                 }
