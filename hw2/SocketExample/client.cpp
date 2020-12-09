@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
             sleep(2);
             cin >> Message; //video file name
             sent = send(localSocket, Message, strlen(Message), 0);
-            
+
             // get the resolution of the video
             Mat imgClient;
 
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
             bzero(receiveMessage, sizeof(char) * BUFF_SIZE);
             recved = recv(localSocket, receiveMessage, sizeof(char) * BUFF_SIZE, 0);
             int height = atoi(receiveMessage);
-            
+
             cout << width << ", " << height << endl;
 
             //allocate container to load frames
@@ -97,6 +97,11 @@ int main(int argc, char *argv[])
 
             while (1)
             {
+                if ((recved = recv(localSocket, imgClient.data, imgSize, MSG_WAITALL)) == -1)
+                {
+                    cerr << "recv failed, received bytes = " << bytes << std::endl;
+                }
+                /*
                 bzero(receiveMessage, sizeof(char) * BUFF_SIZE);
 
                 recved = recv(localSocket, receiveMessage, sizeof(char) * BUFF_SIZE, 0);
@@ -111,7 +116,7 @@ int main(int argc, char *argv[])
                 // copy a fream from buffer to the container on client
 
                 memcpy(imgClient.data, frameBuffer, imgSize);
-
+                */
                 imshow("Video", imgClient);
                 //Press ESC on keyboard to exit
                 // notice: this part is necessary due to openCV's design.

@@ -115,6 +115,7 @@ int main(int argc, char **argv)
             int width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
             int height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
             cout << width << ", " << height << endl;
+            
 
             //allocate container to load frames
 
@@ -126,7 +127,7 @@ int main(int argc, char **argv)
 
             sprintf(Message, "%d", height);
             sent = send(remoteSocket, Message, strlen(Message), 0);
-
+            int imgSize = imgServer.total() * imgServer.elemSize();
             // ensure the memory is continuous (for efficiency issue.)
             if (!imgServer.isContinuous())
             {
@@ -137,7 +138,7 @@ int main(int argc, char **argv)
             {
                 //get a frame from the video to the container on server.
                 cap >> imgServer;
-
+                /*
                 // get the size of a frame in bytes
                 int imgSize = imgServer.total() * imgServer.elemSize();
                 bzero(Message, sizeof(char) * BUFF_SIZE);
@@ -152,6 +153,12 @@ int main(int argc, char **argv)
                 memcpy(buffer, imgServer.data, imgSize);
 
                 sent = send(remoteSocket, buffer, strlen(buffer), 0);
+                */
+                if ((sent = send(remoteSocket, img.data, imgSize, 0)) < 0)
+                {
+                    cerr << "bytes = " << bytes << std::endl;
+                    break;
+                }
             }
         }
         else if (strncmp("put", receiveMessage, 3) == 0)
