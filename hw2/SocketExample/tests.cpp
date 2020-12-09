@@ -105,7 +105,7 @@ void *display(void *ptr)
     //----------------------------------------------------------
 
     Mat img, imgGray;
-    img = Mat::zeros(480, 640, CV_8UC1);
+    img = Mat::zeros(540, 960, CV_8UC1);
     //make it continuous
     if (!img.isContinuous())
     {
@@ -132,7 +132,7 @@ void *display(void *ptr)
         cap >> img;
 
         //do video processing here
-        cvtColor(img, imgGray, CV_BGR2GRAY);
+        //cvtColor(img, imgGray, CV_BGR2GRAY);
 
         //send processed image
         if ((bytes = send(socket, imgGray.data, imgSize, 0)) < 0)
