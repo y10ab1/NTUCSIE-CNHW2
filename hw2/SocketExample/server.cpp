@@ -142,6 +142,7 @@ int main(int argc, char **argv)
                 if ((sent = send(remoteSocket, imgServer.data, imgSize, 0)) < 0)
                 {
                     cerr << "bytes = " << sent << endl;
+                    send(remoteSocket, "", 0, 0);
                     break;
                 }
             }
