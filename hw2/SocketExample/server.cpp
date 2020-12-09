@@ -109,7 +109,8 @@ int main(int argc, char **argv)
 
             recv(remoteSocket, receiveMessage, sizeof(char) * BUFF_SIZE, 0);
             cout << "videoname: " << receiveMessage << "\n";
-            VideoCapture cap("./tmp.mpg");
+            //VideoCapture cap("./tmp.mpg");
+            VideoCapture cap(receiveMessage);
 
             // get the resolution of the video
             int width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
