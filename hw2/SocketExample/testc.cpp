@@ -76,8 +76,8 @@ int main(int argc, char **argv)
         }
 
         cv::imshow("CV Video Client", img);
-
-        if (key = cv::waitKey(10) >= 0)
+        char c = (char)cv::waitKey(33.3333);
+        if (c == 27)
             break;
     }
 
