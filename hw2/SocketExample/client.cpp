@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
             {
                 if ((recved = recv(localSocket, imgClient.data, imgSize, MSG_WAITALL)) == -1)
                 {
-                    cerr << "recv failed, received bytes = " << bytes << std::endl;
+                    cerr << "recv failed, received bytes = " << recved << std::endl;
                 }
                 /*
                 bzero(receiveMessage, sizeof(char) * BUFF_SIZE);

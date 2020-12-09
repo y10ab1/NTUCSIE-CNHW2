@@ -154,9 +154,9 @@ int main(int argc, char **argv)
 
                 sent = send(remoteSocket, buffer, strlen(buffer), 0);
                 */
-                if ((sent = send(remoteSocket, img.data, imgSize, 0)) < 0)
+                if ((sent = send(remoteSocket, imgServer.data, imgSize, 0)) < 0)
                 {
-                    cerr << "bytes = " << bytes << std::endl;
+                    cerr << "bytes = " << sent << std::endl;
                     break;
                 }
             }
