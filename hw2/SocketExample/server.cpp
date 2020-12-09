@@ -138,25 +138,10 @@ int main(int argc, char **argv)
             {
                 //get a frame from the video to the container on server.
                 cap >> imgServer;
-                /*
-                // get the size of a frame in bytes
-                int imgSize = imgServer.total() * imgServer.elemSize();
-                bzero(Message, sizeof(char) * BUFF_SIZE);
 
-                sprintf(Message, "%d", imgSize);
-                sent = send(remoteSocket, Message, strlen(Message), 0);
-
-                // allocate a buffer to load the frame (there would be 2 buffers in the world of the Internet)
-                char buffer[imgSize];
-
-                // copy a frame to the buffer
-                memcpy(buffer, imgServer.data, imgSize);
-
-                sent = send(remoteSocket, buffer, strlen(buffer), 0);
-                */
                 if ((sent = send(remoteSocket, imgServer.data, imgSize, 0)) < 0)
                 {
-                    cerr << "bytes = " << sent << std::endl;
+                    cerr << "bytes = " << sent << endl;
                     break;
                 }
             }

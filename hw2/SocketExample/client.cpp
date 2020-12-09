@@ -100,24 +100,13 @@ int main(int argc, char *argv[])
             {
                 if ((recved = recv(localSocket, imgClient.data, imgSize, MSG_WAITALL)) == -1)
                 {
-                    cerr << "recv failed, received bytes = " << recved << std::endl;
+                    cerr << "recv failed, received bytes = " << recved << endl;
+                }else if ((recved== 0))
+                {
+                    destroyAllWindows();
                 }
-                /*
-                bzero(receiveMessage, sizeof(char) * BUFF_SIZE);
+                cout<<"recv byte: "<<recved<<endl;
 
-                recved = recv(localSocket, receiveMessage, sizeof(char) * BUFF_SIZE, 0);
-                
-                int imgSize = atoi(receiveMessage);
-                cout <<"imgSize: "<< imgSize<<"\n\n";
-                char frameBuffer[imgSize] = {};
-                bzero(frameBuffer, sizeof(char) * imgSize);
-
-                recved = recv(localSocket, frameBuffer, sizeof(char) * imgSize, 0);
-
-                // copy a fream from buffer to the container on client
-
-                memcpy(imgClient.data, frameBuffer, imgSize);
-                */
                 imshow("Video", imgClient);
                 //Press ESC on keyboard to exit
                 // notice: this part is necessary due to openCV's design.
