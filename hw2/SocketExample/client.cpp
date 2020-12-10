@@ -67,6 +67,7 @@ int main(int argc, char *argv[])
         }
         else if (strncmp("play", Message, 4) == 0)
         {
+            
             sent = send(localSocket, Message, strlen(Message), MSG_WAITALL);
             bzero(Message, sizeof(char) * BUFF_SIZE);
             sleep(2);
@@ -101,9 +102,6 @@ int main(int argc, char *argv[])
                 if ((recved = recv(localSocket, imgClient.data, imgSize, MSG_WAITALL)) == -1)
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
-                }else if ((recved== 1))
-                {
-                    destroyAllWindows();
                 }
                 cout<<"recv byte: "<<recved<<endl;
 
@@ -112,8 +110,11 @@ int main(int argc, char *argv[])
                 // notice: this part is necessary due to openCV's design.
                 // waitKey means a delay to get the next frame.
                 char c = (char)waitKey(33.3333);
-                if (c == 27)
+                if (c == 27){
+                    destroyAllWindows();
                     break;
+                }
+                    
             }
         }
         else if (strncmp("put", Message, 3) == 0)
