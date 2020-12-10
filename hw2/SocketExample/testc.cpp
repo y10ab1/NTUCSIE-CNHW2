@@ -50,7 +50,7 @@ int main(int argc, char** argv)
     //----------------------------------------------------------
 
     Mat img;
-    img = Mat::zeros(480 , 640, CV_8UC3);
+    img = Mat::zeros(540 , 960, CV_8UC3);
     int imgSize = img.total() * img.elemSize();
     uchar *iptr = img.data;
     int bytes = 0;
@@ -65,13 +65,13 @@ int main(int argc, char** argv)
 
     namedWindow("CV Video Client", 1);
 
-    while (key != 'q') {
+    while (key != 27) {
         if ((bytes = recv(socket_fd, iptr, imgSize , MSG_WAITALL)) == -1) {
             std::cerr << "recv failed, received bytes = " << bytes << std::endl;
         }
         
         cv::imshow("CV Video Client", img);
-        if (key = cv::waitKey(10) >= 0) break;
+        if (key = cv::waitKey(33.3333) >= 0) break;
     }
 
     // tell server to quit
