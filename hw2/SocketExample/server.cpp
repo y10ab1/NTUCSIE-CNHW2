@@ -125,7 +125,7 @@ int main(int argc, char **argv)
             sprintf(Message, "%d", width);
             sent = send(remoteSocket, Message, strlen(Message), 0);
             bzero(Message, sizeof(char) * BUFF_SIZE);
-
+            sleep(1);
             sprintf(Message, "%d", height);
             sent = send(remoteSocket, Message, strlen(Message), 0);
             int imgSize = imgServer.total() * imgServer.elemSize();
