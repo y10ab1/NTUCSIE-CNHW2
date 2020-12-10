@@ -146,6 +146,7 @@ int main(int argc, char **argv)
                     
                     break;
                 }
+                cout<<"sent bytes: "<<sent<<endl;
             }
         }
         else if (strncmp("put", receiveMessage, 3) == 0)
