@@ -27,7 +27,7 @@ bool running = false;
 int QUIT = 0;
 int capDev = 0;
 // open the default camera
-VideoCapture cap("./tmp.mpg");
+//VideoCapture cap("./tmp.mpg");
 
 int main(int argc, char **argv)
 {
@@ -86,7 +86,7 @@ int main(int argc, char **argv)
     while (1)
     {
         remoteSocket = accept(localSocket, (struct sockaddr *)&remoteAddr, (socklen_t *)&addrLen);
-
+        
         if (remoteSocket < 0)
         {
             perror("accept failed!");
@@ -115,7 +115,7 @@ void *send_data(void *ptr)
     int socket = *(int *)ptr;
     //OpenCV Code
     //----------------------------------------------------------
-
+    VideoCapture cap("./tmp.mpg");
     Mat img, flippedFrame;
 
     int height = cap.get(CAP_PROP_FRAME_HEIGHT);
@@ -143,10 +143,10 @@ void *send_data(void *ptr)
         // get a frame from the camera
         cap >> img;
         // flip the frame
-        flip(img, flippedFrame, 1);
+        //flip(img, flippedFrame, 1);
 
         // send the flipped frame over the network
-        if ((bytes = send(socket, flippedFrame.data, imgSize, 0)) < 0)
+        if ((bytes = send(socket, img.data, imgSize, 0)) < 0)
         {
             std::cerr << "bytes = " << bytes << std::endl;
             break;
