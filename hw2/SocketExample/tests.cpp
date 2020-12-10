@@ -27,7 +27,7 @@ bool running = false;
 int QUIT = 0;
 int capDev = 0;
 // open the default camera
-VideoCapture cap(capDev);
+VideoCapture cap("./tmp.mpg");
 
 int main(int argc, char** argv)
 {   
