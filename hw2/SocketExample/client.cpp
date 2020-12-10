@@ -67,10 +67,11 @@ int main(int argc, char *argv[])
         }
         else if (strncmp("play", Message, 4) == 0)
         {
-            
+            int QUIT = 0;
+
             sent = send(localSocket, Message, strlen(Message), MSG_WAITALL);
             bzero(Message, sizeof(char) * BUFF_SIZE);
-            sleep(2);
+            sleep(1);
             cin >> Message; //video file name
             sent = send(localSocket, Message, strlen(Message), MSG_WAITALL);
 
@@ -103,19 +104,21 @@ int main(int argc, char *argv[])
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
-                cout<<"recv byte: "<<recved<<endl;
+                cout << "recv byte: " << recved << endl;
 
                 imshow("Video", imgClient);
                 //Press ESC on keyboard to exit
                 // notice: this part is necessary due to openCV's design.
                 // waitKey means a delay to get the next frame.
                 char c = (char)waitKey(33.3333);
-                if (c == 27){
+                if (c == 27)
+                {
                     destroyAllWindows();
                     break;
                 }
-                    
             }
+            send(localSocket, (void *)QUIT, sizeof(QUIT), 0);
+            
         }
         else if (strncmp("put", Message, 3) == 0)
         {
