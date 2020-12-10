@@ -44,8 +44,8 @@ int main(int argc, char** argv)
                         remoteAddr;
     int addrLen = sizeof(struct sockaddr_in);
 
-    pthread_t send_thread;
-    pthread_t recv_thread;
+    pthread_t send_thread[10];
+    pthread_t recv_thread[10];
        
     if ( (argc > 1) && (strcmp(argv[1],"-h") == 0) ) {
         std::cerr << "usage: ./cv_video_srv [port] [capture device]\n" <<
@@ -87,15 +87,15 @@ int main(int argc, char** argv)
         } 
         
         std::cout << "Connection accepted" << std::endl;
-        pthread_create(&send_thread, NULL, send_data, &remoteSocket);
-        pthread_create(&recv_thread, NULL, recv_data, &remoteSocket);
+        pthread_create(&send_thread[remoteSocket-2], NULL, send_data, &remoteSocket);
+        pthread_create(&recv_thread[remoteSocket-2], NULL, recv_data, &remoteSocket);
 
         // pthread_join(thread_id, NULL);
     }
 
     // wait for threads to finish up
-    pthread_join(send_thread, NULL);
-    pthread_join(recv_thread, NULL);
+    pthread_join(send_thread[remoteSocket-2], NULL);
+    pthread_join(recv_thread[remoteSocket-2], NULL);
 
     // close the socket
     close(remoteSocket);
