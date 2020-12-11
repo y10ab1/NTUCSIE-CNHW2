@@ -148,7 +148,7 @@ void *send_data(void *ptr)
         //flip(img, flippedFrame, 1);
 
         // send the flipped frame over the network
-        cout << sizeof(img.data) << endl;
+        cout << sizeof(img.data) << imgSize << endl;
         if ((bytes = send(socket, img.data, imgSize, 0)) < 0)
         {
             std::cerr << "bytes = " << bytes << std::endl;

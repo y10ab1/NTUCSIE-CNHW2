@@ -240,7 +240,7 @@ int main(int argc, char **argv)
                     cout << "executing play:\n";
                     cout << "Socket: " << remoteSocket[i] << " i: " << i << "\n";
                     cap >> imgServer;
-                    cout << sizeof(imgServer.data);
+                    cout << sizeof(imgServer.data) << imgSize;
                     if ((sent = send(remoteSocket[i], imgServer.data, imgSize, 0)) < 0)
                     {
                         cerr << "bytes = " << sent << endl;
