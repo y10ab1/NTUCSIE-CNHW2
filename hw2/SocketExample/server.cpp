@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     /*setting start*/
     int localSocket, port = 4097;
     int remoteSocket = -2;
-    int fdmax = 2;
+    int fdmax = 0;
     fd_set master_socks, command_socks;
     FD_ZERO(&master_socks);
     FD_ZERO(&command_socks);
@@ -73,6 +73,7 @@ int main(int argc, char **argv)
     listen(localSocket, 3);
     FD_SET(localSocket, &master_socks);
     fdmax = localSocket;
+    cout << "Connection bind: " << localSocket << endl;
 
     /*setting end*/
 
