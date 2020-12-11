@@ -90,15 +90,9 @@ int main(int argc, char **argv)
         select(fdmax + 1, &command_socks, NULL, NULL, &tv);
 
         int sent;
-        std::cout << "Waiting for connections...\n"
-                  << "Server Port:" << port << std::endl;
-        /*
-        if (remoteSocket < 0)
-        {
-            printf("accept failed!");
-            return 0;
-        }
-        */
+        //std::cout << "Waiting for connections...\n"
+        //          << "Server Port:" << port << std::endl;
+
 
         for (int i = 0; i <= fdmax; i++)
         {
@@ -124,7 +118,7 @@ int main(int argc, char **argv)
                 }
                 else
                 {
-                    cout << "hi\n";
+                    
                     /*receive command*/
                     char receiveMessage[BUFF_SIZE] = {};
 
@@ -238,17 +232,17 @@ int main(int argc, char **argv)
                     /* play */
 
                     cout << "executing play:\n";
-                    cout << "Socket: " << remoteSocket[i] << " i: " << i << "\n";
+                    //cout << "Socket: " << remoteSocket[i] << " i: " << i << "\n";
                     cap[i] >> imgServer;
-                    cout << sizeof(imgServer.data) << imgSize;
-                    cout << imgServer.data << endl;
+                    //cout << sizeof(imgServer.data) << imgSize;
+                    //cout << imgServer.data << endl;
                     if ((sent = send(remoteSocket[i], imgServer.data, imgSize, 0)) < 0)
                     {
                         cerr << "bytes = " << sent << endl;
 
                         //break;
                     }
-                    cout << "sent bytes: " << sent << endl;
+                    //cout << "sent bytes: " << sent << endl;
 
                     break;
                 case 3:
