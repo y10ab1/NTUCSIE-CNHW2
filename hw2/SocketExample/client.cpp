@@ -112,6 +112,7 @@ int main(int argc, char *argv[])
                 //cout << newrv << endl;
                 if (newrv == 0)
                 {
+                    cout<<"timeout, newrv= "<<newrv<<endl;
                     destroyAllWindows();
                     break;
                 }
