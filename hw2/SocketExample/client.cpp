@@ -100,6 +100,12 @@ int main(int argc, char *argv[])
 
             while (1)
             {
+                if (waitKey(33.3333) == 27)
+                {
+                    destroyAllWindows();
+                    break;
+                }
+
                 if ((recved = recv(localSocket, imgClient.data, imgSize, MSG_WAITALL)) == -1)
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
@@ -110,12 +116,7 @@ int main(int argc, char *argv[])
                 //Press ESC on keyboard to exit
                 // notice: this part is necessary due to openCV's design.
                 // waitKey means a delay to get the next frame.
-                char c = (char)waitKey(33.3333);
-                if (c == 27)
-                {
-                    destroyAllWindows();
-                    break;
-                }
+                //char c = (char)waitKey(33.3333);
             }
             send(localSocket, (void *)QUIT, sizeof(QUIT), 0);
         }
