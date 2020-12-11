@@ -128,6 +128,7 @@ void *send_data(void *ptr)
 
     int imgSize = img.total() * img.elemSize();
     int bytes = 0;
+    uchar *iptr=img.data;
 
     // make img continuos
     if (!img.isContinuous())
