@@ -162,7 +162,7 @@ int main(int argc, char **argv)
 
                             recv(remoteSocket[i], receiveMessage, sizeof(char) * BUFF_SIZE, 0);
                             cout << "videoname: " << receiveMessage << "\n";
-                            VideoCapture cap("./tmp.mpg");
+                            cap.open("./tmp.mpg");
                             //filename[i]=receiveMessage;
                             //VideoCapture cap(receiveMessage);
 
@@ -246,7 +246,7 @@ int main(int argc, char **argv)
                     {
                         cerr << "bytes = " << sent << endl;
 
-                        break;
+                        //break;
                     }
                     cout << "sent bytes: " << sent << endl;
 
