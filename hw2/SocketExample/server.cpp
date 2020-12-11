@@ -106,7 +106,7 @@ int main(int argc, char **argv)
             {
                 if (i == localSocket)
                 { //new socket
-                    if (remoteSocket = accept(localSocket, (struct sockaddr *)&remoteAddr, (socklen_t *)&addrLen) != -1)
+                    if ((remoteSocket = accept(localSocket, (struct sockaddr *)&remoteAddr, (socklen_t *)&addrLen)) != -1)
                     {
                         
                         cout << "Connection accepted: " << remoteSocket << endl;
