@@ -9,7 +9,7 @@ SER = server
 testc = testc.cpp
 tests = tests.cpp
 
-all: server client opencv
+all: server client openCV
   
 server: $(SERVER)
 	$(CC) $(SERVER) -o $(SER)  $(OPENCV) $(PTHREAD) 

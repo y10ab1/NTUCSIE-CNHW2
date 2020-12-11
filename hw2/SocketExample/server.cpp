@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 
     /*setting start*/
     int localSocket, port = 4097;
-    int remoteSocket = -2;
+    int remoteSocket[100] = {0};
     int fdmax = 0;
     fd_set master_socks, command_socks;
     FD_ZERO(&master_socks);
@@ -82,7 +82,7 @@ int main(int argc, char **argv)
         command_socks = master_socks;
 
         //todo : select
-        fdmax = (remoteSocket > fdmax) ? remoteSocket : fdmax;
+        //fdmax = (remoteSocket > fdmax) ? remoteSocket : fdmax;
 
         tv.tv_sec = 2;
         tv.tv_usec = 0;
@@ -106,13 +106,13 @@ int main(int argc, char **argv)
             {
                 if (i == localSocket)
                 { //new socket
-                    if ((remoteSocket = accept(localSocket, (struct sockaddr *)&remoteAddr, (socklen_t *)&addrLen)) != -1)
+                    if ((remoteSocket[i] = accept(localSocket, (struct sockaddr *)&remoteAddr, (socklen_t *)&addrLen)) != -1)
                     {
                         
                         cout << "Connection accepted: " << remoteSocket << endl;
                         cout << "fdmax: " << fdmax << endl;
-                        FD_SET(remoteSocket, &master_socks);
-                        fdmax = (remoteSocket > fdmax) ? remoteSocket : fdmax;
+                        FD_SET(remoteSocket[i], &master_socks);
+                        fdmax = (remoteSocket[i] > fdmax) ? remoteSocket[i] : fdmax;
                     }
                     else
                     {
@@ -127,7 +127,7 @@ int main(int argc, char **argv)
                     char receiveMessage[BUFF_SIZE] = {};
 
                     bzero(receiveMessage, sizeof(char) * BUFF_SIZE);
-                    if ((recved = recv(remoteSocket, receiveMessage, sizeof(char) * BUFF_SIZE, 0)) < 0)
+                    if ((recved = recv(remoteSocket[i], receiveMessage, sizeof(char) * BUFF_SIZE, 0)) < 0)
                     {
                         cout << "recv failed, with received bytes = " << recved << endl;
                         break;
@@ -157,7 +157,7 @@ int main(int argc, char **argv)
                             //Mat imgServer;
                             bzero(receiveMessage, sizeof(char) * BUFF_SIZE);
 
-                            recv(remoteSocket, receiveMessage, sizeof(char) * BUFF_SIZE, 0);
+                            recv(remoteSocket[i], receiveMessage, sizeof(char) * BUFF_SIZE, 0);
                             cout << "videoname: " << receiveMessage << "\n";
                             VideoCapture cap("./tmp.mpg");
                             //filename[i]=receiveMessage;
@@ -173,11 +173,11 @@ int main(int argc, char **argv)
                             imgServer = Mat::zeros(height, width, CV_8UC3);
 
                             sprintf(Message, "%d", width);
-                            sent = send(remoteSocket, Message, strlen(Message), 0);
+                            sent = send(remoteSocket[i], Message, strlen(Message), 0);
                             bzero(Message, sizeof(char) * BUFF_SIZE);
                             sleep(1);
                             sprintf(Message, "%d", height);
-                            sent = send(remoteSocket, Message, strlen(Message), 0);
+                            sent = send(remoteSocket[i], Message, strlen(Message), 0);
                             imgSize = imgServer.total() * imgServer.elemSize();
                             // ensure the memory is continuous (for efficiency issue.)
                             if (!imgServer.isContinuous())
@@ -210,7 +210,7 @@ int main(int argc, char **argv)
                         else if (strncmp("close", receiveMessage, 5) == 0)
                         {
                             //status[i] = 5;
-                            close(remoteSocket);
+                            close(remoteSocket[i]);
                             //remoteSocket = -2;
                             cout << "close Socket.\n\n";
                         }
@@ -235,7 +235,7 @@ int main(int argc, char **argv)
                     cap >> imgServer;
                     cout << "executing play:\n";
 
-                    if ((sent = send(remoteSocket, imgServer.data, imgSize, 0)) < 0)
+                    if ((sent = send(remoteSocket[i], imgServer.data, imgSize, 0)) < 0)
                     {
                         cerr << "bytes = " << sent << endl;
 
