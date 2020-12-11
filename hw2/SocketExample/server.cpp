@@ -99,7 +99,7 @@ int main(int argc, char **argv)
         }
         */
 
-        for (int i = 3; i <= fdmax; i++)
+        for (int i = 0; i <= fdmax; i++)
         {
             if (FD_ISSET(i, &command_socks))
             {
