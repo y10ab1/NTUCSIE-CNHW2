@@ -17,6 +17,7 @@
 
 #include <semaphore.h>
 
+using namespace std;
 using namespace cv;
 
 void *send_data(void *);
