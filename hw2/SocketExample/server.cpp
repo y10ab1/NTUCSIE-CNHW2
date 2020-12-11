@@ -14,7 +14,7 @@
 
 using namespace std;
 using namespace cv;
-VideoCapture cap;
+VideoCapture cap[100];
 Mat imgServer;
 string filename[100];
 int imgSize;
@@ -162,7 +162,7 @@ int main(int argc, char **argv)
 
                             recv(remoteSocket[i], receiveMessage, sizeof(char) * BUFF_SIZE, 0);
                             cout << "videoname: " << receiveMessage << "\n";
-                            cap.open("./tmp.mpg");
+                            cap[i].open("./tmp.mpg");
                             //filename[i]=receiveMessage;
                             //VideoCapture cap(receiveMessage);
 
