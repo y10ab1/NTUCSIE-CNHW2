@@ -32,8 +32,8 @@ int main(int argc, char **argv)
 
     struct timeval tv;
 
-    tv.tv_sec = 2;
-    tv.tv_usec = 0;
+    tv.tv_sec = 0;
+    tv.tv_usec = 1;
 
     if (argc < 2)
     {
@@ -87,7 +87,7 @@ int main(int argc, char **argv)
         tv.tv_sec = 2;
         tv.tv_usec = 0;
 
-        select(fdmax + 1, &command_socks, NULL, NULL, 0);
+        select(fdmax + 1, &command_socks, NULL, NULL, &tv);
 
         int sent;
         std::cout << "Waiting for connections...\n"
