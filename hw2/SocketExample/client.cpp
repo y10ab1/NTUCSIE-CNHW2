@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 
             sent = send(localSocket, Message, strlen(Message), MSG_WAITALL);
             bzero(Message, sizeof(char) * BUFF_SIZE);
-            sleep(0.1);
+            sleep(0.5);
             cin >> Message; //video file name
             sent = send(localSocket, Message, strlen(Message), MSG_WAITALL);
 
@@ -109,16 +109,17 @@ int main(int argc, char *argv[])
             while (1)
             {
                 int newrv = select(localSocket + 1, &master_socks, NULL, NULL, &tv);
-                cout << newrv << endl;
-                if ((recved = recv(localSocket, imgClient.data, imgSize, MSG_WAITALL)) == -1)
-                {
-                    cerr << "recv failed, received bytes = " << recved << endl;
-                }
-                else if (newrv == 0)
+                //cout << newrv << endl;
+                if (newrv == 0)
                 {
                     destroyAllWindows();
                     break;
                 }
+                else if ((recved = recv(localSocket, imgClient.data, imgSize, MSG_WAITALL)) == -1)
+                {
+                    cerr << "recv failed, received bytes = " << recved << endl;
+                }
+
                 //cout << "recv byte: " << recved << endl;
                 startWindowThread();
                 imshow("Video", imgClient);
