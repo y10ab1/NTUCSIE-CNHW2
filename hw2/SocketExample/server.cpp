@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 
     struct timeval tv;
 
-    tv.tv_sec = 1;
+    tv.tv_sec = 2;
     tv.tv_usec = 0;
 
     if (argc < 2)
