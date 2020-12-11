@@ -93,7 +93,6 @@ int main(int argc, char **argv)
         //std::cout << "Waiting for connections...\n"
         //          << "Server Port:" << port << std::endl;
 
-
         for (int i = 0; i <= fdmax; i++)
         {
             if (FD_ISSET(i, &command_socks))
@@ -118,7 +117,7 @@ int main(int argc, char **argv)
                 }
                 else
                 {
-                    
+
                     /*receive command*/
                     char receiveMessage[BUFF_SIZE] = {};
 
@@ -132,7 +131,7 @@ int main(int argc, char **argv)
                     else if (recved == 0)
                     {
                         cout << "<socket closed>\n";
-                        FD_CLR(remoteSocket[i],&master_socks);
+                        FD_CLR(remoteSocket[i], &master_socks);
                         break;
                     }
                     else
@@ -235,16 +234,14 @@ int main(int argc, char **argv)
                     cout << "executing play:\n";
                     //cout << "Socket: " << remoteSocket[i] << " i: " << i << "\n";
                     cap[i] >> imgServer;
-                    cout << sizeof(imgServer.data) << imgSize;
+                    //cout << sizeof(imgServer.data) << imgSize;
                     //cout << imgServer.data << endl;
                     if ((sent = send(remoteSocket[i], imgServer.data, imgSize, 0)) < 0)
                     {
                         cerr << "bytes = " << sent << endl;
-
-                        //break;
-                    }else if(sizeof(imgServer.data)==0){
-                        status[i]=0;
+                        status[i] = 0;
                         cap[i].release();
+                        //break;
                     }
                     //cout << "sent bytes: " << sent << endl;
 
