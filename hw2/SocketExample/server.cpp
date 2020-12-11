@@ -119,6 +119,7 @@ int main(int argc, char **argv)
                 }
                 else
                 {
+                    cout<<"hi\n";
                     /*receive command*/
                     char receiveMessage[BUFF_SIZE] = {};
 
