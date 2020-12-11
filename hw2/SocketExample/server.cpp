@@ -14,7 +14,7 @@
 
 using namespace std;
 using namespace cv;
-VideoCapture capglocal;
+VideoCapture capglocal();
 int main(int argc, char **argv)
 {
 
