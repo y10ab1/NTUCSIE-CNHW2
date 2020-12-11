@@ -108,10 +108,11 @@ int main(int argc, char **argv)
                 { //new socket
                     if (remoteSocket = accept(localSocket, (struct sockaddr *)&remoteAddr, (socklen_t *)&addrLen) != -1)
                     {
-                        FD_SET(remoteSocket, &master_socks);
-                        fdmax = (remoteSocket > fdmax) ? remoteSocket : fdmax;
+                        
                         cout << "Connection accepted: " << remoteSocket << endl;
                         cout << "fdmax: " << fdmax << endl;
+                        FD_SET(remoteSocket, &master_socks);
+                        fdmax = (remoteSocket > fdmax) ? remoteSocket : fdmax;
                     }
                     else
                     {
