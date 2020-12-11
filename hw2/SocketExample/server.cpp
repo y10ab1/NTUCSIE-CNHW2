@@ -17,6 +17,7 @@ using namespace cv;
 VideoCapture cap;
 Mat imgServer;
 string filename[100];
+int imgSize;
 int main(int argc, char **argv)
 {
 
@@ -144,7 +145,7 @@ int main(int argc, char **argv)
                         else if (strncmp("play", receiveMessage, 4) == 0)
                         {
                             status[i] = 2;
-                            int imgSize;
+                            
 
                             // server
 
