@@ -84,8 +84,8 @@ int main(int argc, char **argv)
         //todo : select
         //fdmax = (remoteSocket > fdmax) ? remoteSocket : fdmax;
 
-        tv.tv_sec = 2;
-        tv.tv_usec = 0;
+        tv.tv_sec = 0;
+        tv.tv_usec = 1;
 
         select(fdmax + 1, &command_socks, NULL, NULL, &tv);
 
