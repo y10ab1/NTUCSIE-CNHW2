@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
 
             sent = send(localSocket, Message, strlen(Message), MSG_WAITALL);
             bzero(Message, sizeof(char) * BUFF_SIZE);
-            sleep(0.01);
+            sleep(0.1);
             cin >> Message; //video file name
             sent = send(localSocket, Message, strlen(Message), MSG_WAITALL);
 
