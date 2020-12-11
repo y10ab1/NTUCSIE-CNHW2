@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
 
             while (1)
             {
-                int newrv = select(localSocket + 1, &master_socks, NULL, NULL, tv);
+                int newrv = select(localSocket + 1, &master_socks, NULL, NULL, &tv);
 
                 if ((recved = recv(localSocket, imgClient.data, imgSize, MSG_WAITALL)) == -1)
                 {
