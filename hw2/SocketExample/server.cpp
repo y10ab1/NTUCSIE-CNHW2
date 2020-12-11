@@ -109,7 +109,8 @@ int main(int argc, char **argv)
                     {
                         FD_SET(remoteSocket, &master_socks);
                         fdmax = (remoteSocket > fdmax) ? remoteSocket : fdmax;
-                        cout << "Connection accepted" << endl;
+                        cout << "Connection accepted: " << remoteSocket << endl;
+                        cout << "fdmax: " << fdmax << endl;
                     }
                     else
                     {
@@ -119,7 +120,7 @@ int main(int argc, char **argv)
                 }
                 else
                 {
-                    cout<<"hi\n";
+                    cout << "hi\n";
                     /*receive command*/
                     char receiveMessage[BUFF_SIZE] = {};
 
