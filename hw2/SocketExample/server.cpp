@@ -23,8 +23,9 @@ int main(int argc, char **argv)
     int fdmax = 2;
     fd_set master_socks, command_socks;
     FD_ZERO(&master_socks);
-    FD_ZERO(&command_socks)
+    FD_ZERO(&command_socks);
     int status[100] = {0};
+    VideoCapture capglocal;
 
     struct timeval tv;
 
@@ -150,6 +151,7 @@ int main(int argc, char **argv)
                             cout << "videoname: " << receiveMessage << "\n";
                             //VideoCapture cap("./tmp.mpg");
                             VideoCapture cap(receiveMessage);
+                            capglobal=cap;
 
                             // get the resolution of the video
                             int width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
@@ -220,7 +222,7 @@ int main(int argc, char **argv)
                     break;
                 case 2:
                     /* play */
-                    cap >> imgServer;
+                    capglobal >> imgServer;
 
                     if ((sent = send(remoteSocket, imgServer.data, imgSize, 0)) < 0)
                     {
@@ -249,7 +251,8 @@ int main(int argc, char **argv)
     return 0;
 }
 
-void command(int sockfd)
+
+/* void command(int sockfd)
 {
     /*receive command*/
     char receiveMessage[BUFF_SIZE] = {};
@@ -338,4 +341,4 @@ void command(int sockfd)
     {
         cout << "Command not found.\n";
     }
-}
+} */
