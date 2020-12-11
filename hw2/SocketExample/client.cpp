@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
-                cout << "recv byte: " << recved << endl;
+                //cout << "recv byte: " << recved << endl;
 
                 imshow("Video", imgClient);
                 //Press ESC on keyboard to exit
