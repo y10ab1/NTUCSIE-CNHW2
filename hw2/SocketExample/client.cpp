@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 {
 
     int localSocket, remoteSocket, recved, port;
-    fd_set master_socks;
+    
 
     struct timeval tv;
 
@@ -60,6 +60,7 @@ int main(int argc, char *argv[])
 
     while (1)
     {
+        fd_set master_socks;
         FD_ZERO(&master_socks);
         FD_SET(localSocket, &master_socks);
         char receiveMessage[BUFF_SIZE] = {};
