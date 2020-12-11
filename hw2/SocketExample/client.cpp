@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 
             sent = send(localSocket, Message, strlen(Message), MSG_WAITALL);
             bzero(Message, sizeof(char) * BUFF_SIZE);
-            sleep(1);
+            sleep(0.01);
             cin >> Message; //video file name
             sent = send(localSocket, Message, strlen(Message), MSG_WAITALL);
 
@@ -100,11 +100,6 @@ int main(int argc, char *argv[])
 
             while (1)
             {
-                if (waitKey(33.3333) == 27)
-                {
-                    destroyAllWindows();
-                    break;
-                }
 
                 if ((recved = recv(localSocket, imgClient.data, imgSize, MSG_WAITALL)) == -1)
                 {
@@ -117,6 +112,11 @@ int main(int argc, char *argv[])
                 // notice: this part is necessary due to openCV's design.
                 // waitKey means a delay to get the next frame.
                 //char c = (char)waitKey(33.3333);
+                if (waitKey(33.3333) == 27)
+                {
+                    destroyAllWindows();
+                    break;
+                }
             }
             send(localSocket, (void *)QUIT, sizeof(QUIT), 0);
         }

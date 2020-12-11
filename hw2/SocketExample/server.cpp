@@ -137,7 +137,7 @@ int main(int argc, char **argv)
                     else
                     {
                         printf("word len, command: %d: %s\n", recved, receiveMessage);
-                        
+
                         /*check commands*/
                         if (strncmp("ls", receiveMessage, 2) == 0)
                         {
@@ -239,10 +239,15 @@ int main(int argc, char **argv)
                     if ((sent = send(remoteSocket[i], imgServer.data, imgSize, 0)) < 0)
                     {
                         cerr << "bytes = " << sent << endl;
-                        status[i] = 0;
-                        cap[i].release();
+
                         //send(remoteSocket[i], imgServer.data, imgSize, 0);
                         //break;
+                    }
+                    if (imgServer.empty())
+                    {
+                        status[i] = 0;
+                        cap[i].release();
+                        cout << "end of video\n";
                     }
                     //cout << "sent bytes: " << sent << endl;
 
