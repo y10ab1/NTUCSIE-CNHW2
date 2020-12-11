@@ -130,7 +130,7 @@ int main(int argc, char **argv)
                     bzero(receiveMessage, sizeof(char) * BUFF_SIZE);
                     if ((recved = recv(remoteSocket[i], receiveMessage, sizeof(char) * BUFF_SIZE, 0)) < 0)
                     {
-                        cout << "recv failed, with received bytes = " << recved<<errno << endl;
+                        cout << "recv failed, with received bytes = " << recved << endl;
                         break;
                     }
                     else if (recved == 0)
