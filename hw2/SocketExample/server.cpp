@@ -107,8 +107,10 @@ int main(int argc, char **argv)
                 cout << "i: " << i << " has command\n";
                 if (i == localSocket)
                 { //new socket
-                    if ((remoteSocket[i] = accept(localSocket, (struct sockaddr *)&remoteAddr, (socklen_t *)&addrLen)) != -1)
+                    int newsockfd;
+                    if ((newsockfd = accept(localSocket, (struct sockaddr *)&remoteAddr, (socklen_t *)&addrLen)) != -1)
                     {
+                        remoteSocket[newsockfd] = newsockfd;
                         FD_SET(remoteSocket[i], &master_socks);
                         fdmax = (remoteSocket[i] > fdmax) ? remoteSocket[i] : fdmax;
                         cout << "Connection accepted: " << remoteSocket[i] << endl;
@@ -129,7 +131,7 @@ int main(int argc, char **argv)
                     bzero(receiveMessage, sizeof(char) * BUFF_SIZE);
                     if ((recved = recv(remoteSocket[i], receiveMessage, sizeof(char) * BUFF_SIZE, 0)) < 0)
                     {
-                        cout << "Socket: " << remoteSocket[i] << "i: " << i << " has commands but fail\n";
+                        cout << "Socket: " << remoteSocket[i] << " i: " << i << " has commands but fail\n";
                         cout << "recv failed, with received bytes = " << recved << endl;
                         break;
                     }
@@ -225,6 +227,7 @@ int main(int argc, char **argv)
 
             if (FD_ISSET(i, &master_socks) && status[i] != 0)
             {
+                cout << "******executing sth******\n";
                 switch (status[i])
                 {
                 case 1:
