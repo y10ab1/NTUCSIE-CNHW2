@@ -84,7 +84,7 @@ int main(int argc, char **argv)
         //todo : select
         fdmax = (remoteSocket > fdmax) ? remoteSocket : fdmax;
 
-        select(fdmax + 1, &command_socks, NULL, NULL, &tv);
+        select(fdmax + 1, &command_socks, NULL, NULL, NULL);
 
         int sent;
         std::cout << "Waiting for connections...\n"
