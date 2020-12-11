@@ -18,6 +18,12 @@ int main(int argc, char *argv[])
 {
 
     int localSocket, remoteSocket, recved, port;
+    fd_set master_socks;
+    
+    struct timeval tv;
+
+    tv.tv_sec = 3;
+    tv.tv_usec = 0;
 
     if (argc < 2)
     {
@@ -52,8 +58,12 @@ int main(int argc, char *argv[])
         return 0;
     }
 
+    
+
     while (1)
     {
+        FD_ZERO(&master_socks);
+        FD_SET(localSocket, &master_socks);
         char receiveMessage[BUFF_SIZE] = {};
         int sent;
         cout << "Enter commands:\n";
@@ -100,10 +110,16 @@ int main(int argc, char *argv[])
 
             while (1)
             {
+                int newrv = select(localSocket + 1, &master_socks, NULL, NULL, tv);
 
                 if ((recved = recv(localSocket, imgClient.data, imgSize, MSG_WAITALL)) == -1)
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
+                }
+                else if (newrv == 0)
+                {
+                    destroyAllWindows();
+                    break;
                 }
                 //cout << "recv byte: " << recved << endl;
 

@@ -130,7 +130,7 @@ int main(int argc, char **argv)
                     }
                     else if (recved == 0)
                     {
-                        cout << "<socket closed>\n";
+                        cout << "<socket: " << remoteSocket[i] << " closed>\n";
                         FD_CLR(remoteSocket[i], &master_socks);
                         break;
                     }
