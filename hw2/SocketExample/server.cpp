@@ -14,7 +14,8 @@
 
 using namespace std;
 using namespace cv;
-VideoCapture capglocal();
+VideoCapture cap();
+Mat imgServer;
 int main(int argc, char **argv)
 {
 
@@ -145,14 +146,14 @@ int main(int argc, char **argv)
 
                             // server
 
-                            Mat imgServer;
+                            //Mat imgServer;
                             bzero(receiveMessage, sizeof(char) * BUFF_SIZE);
 
                             recv(remoteSocket, receiveMessage, sizeof(char) * BUFF_SIZE, 0);
                             cout << "videoname: " << receiveMessage << "\n";
                             //VideoCapture cap("./tmp.mpg");
-                            VideoCapture cap(receiveMessage);
-                            capglobal=cap;
+                            /*VideoCapture */cap(receiveMessage);
+                            
 
                             // get the resolution of the video
                             int width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
@@ -223,7 +224,7 @@ int main(int argc, char **argv)
                     break;
                 case 2:
                     /* play */
-                    capglobal >> imgServer;
+                    cap >> imgServer;
 
                     if ((sent = send(remoteSocket, imgServer.data, imgSize, 0)) < 0)
                     {
