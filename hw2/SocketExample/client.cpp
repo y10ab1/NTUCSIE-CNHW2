@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
             //allocate container to load frames
             imgClient = Mat::zeros(height, width, CV_8UC3);
             int imgSize = imgClient.total() * imgClient.elemSize();
-
+            cout << imgSize << endl;
             // ensure the memory is continuous (for efficiency issue.)
             if (!imgClient.isContinuous())
             {
@@ -118,7 +118,6 @@ int main(int argc, char *argv[])
                 }
             }
             send(localSocket, (void *)QUIT, sizeof(QUIT), 0);
-            
         }
         else if (strncmp("put", Message, 3) == 0)
         {
