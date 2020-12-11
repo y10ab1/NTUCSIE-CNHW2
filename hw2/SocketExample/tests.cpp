@@ -86,7 +86,7 @@ int main(int argc, char **argv)
     while (1)
     {
         remoteSocket = accept(localSocket, (struct sockaddr *)&remoteAddr, (socklen_t *)&addrLen);
-        
+
         if (remoteSocket < 0)
         {
             perror("accept failed!");
@@ -128,7 +128,7 @@ void *send_data(void *ptr)
 
     int imgSize = img.total() * img.elemSize();
     int bytes = 0;
-    uchar *iptr=img.data;
+    uchar *iptr = img.data;
 
     // make img continuos
     if (!img.isContinuous())
@@ -147,6 +147,7 @@ void *send_data(void *ptr)
         //flip(img, flippedFrame, 1);
 
         // send the flipped frame over the network
+        cout << sizeof(img.data) << endl;
         if ((bytes = send(socket, img.data, imgSize, 0)) < 0)
         {
             std::cerr << "bytes = " << bytes << std::endl;
