@@ -144,6 +144,7 @@ int main(int argc, char **argv)
                         else if (strncmp("play", receiveMessage, 4) == 0)
                         {
                             status[i] = 2;
+                            int imgSize;
 
                             // server
 
@@ -172,7 +173,7 @@ int main(int argc, char **argv)
                             sleep(1);
                             sprintf(Message, "%d", height);
                             sent = send(remoteSocket, Message, strlen(Message), 0);
-                            int imgSize = imgServer.total() * imgServer.elemSize();
+                            imgSize = imgServer.total() * imgServer.elemSize();
                             // ensure the memory is continuous (for efficiency issue.)
                             if (!imgServer.isContinuous())
                             {
