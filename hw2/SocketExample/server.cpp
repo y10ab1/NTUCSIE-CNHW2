@@ -87,7 +87,7 @@ int main(int argc, char **argv)
         tv.tv_sec = 2;
         tv.tv_usec = 0;
 
-        select(fdmax + 1, &command_socks, NULL, NULL, &tv);
+        select(fdmax + 1, &command_socks, NULL, NULL, 0);
 
         int sent;
         std::cout << "Waiting for connections...\n"
