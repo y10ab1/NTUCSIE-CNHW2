@@ -132,6 +132,7 @@ int main(int argc, char **argv)
                     else if (recved == 0)
                     {
                         cout << "<socket closed>\n";
+                        FD_CLR(remoteSocket[i],&master_socks);
                         break;
                     }
                     else
@@ -234,13 +235,16 @@ int main(int argc, char **argv)
                     cout << "executing play:\n";
                     //cout << "Socket: " << remoteSocket[i] << " i: " << i << "\n";
                     cap[i] >> imgServer;
-                    //cout << sizeof(imgServer.data) << imgSize;
+                    cout << sizeof(imgServer.data) << imgSize;
                     //cout << imgServer.data << endl;
                     if ((sent = send(remoteSocket[i], imgServer.data, imgSize, 0)) < 0)
                     {
                         cerr << "bytes = " << sent << endl;
 
                         //break;
+                    }else if(sizeof(imgServer.data)==0){
+                        status[i]=0;
+                        cap[i].release();
                     }
                     //cout << "sent bytes: " << sent << endl;
 
