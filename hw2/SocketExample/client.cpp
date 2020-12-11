@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
                     break;
                 }
                 //cout << "recv byte: " << recved << endl;
-
+                startWindowThread();
                 imshow("Video", imgClient);
                 //Press ESC on keyboard to exit
                 // notice: this part is necessary due to openCV's design.
