@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 
     int localSocket, remoteSocket, recved, port;
     fd_set master_socks;
-    
+
     struct timeval tv;
 
     tv.tv_sec = 3;
@@ -57,8 +57,6 @@ int main(int argc, char *argv[])
         printf("Connection error\n");
         return 0;
     }
-
-    
 
     while (1)
     {
@@ -111,7 +109,7 @@ int main(int argc, char *argv[])
             while (1)
             {
                 int newrv = select(localSocket + 1, &master_socks, NULL, NULL, &tv);
-
+                cout << newrv << endl;
                 if ((recved = recv(localSocket, imgClient.data, imgSize, MSG_WAITALL)) == -1)
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
