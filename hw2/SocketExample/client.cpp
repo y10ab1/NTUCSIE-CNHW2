@@ -18,7 +18,6 @@ int main(int argc, char *argv[])
 {
 
     int localSocket, remoteSocket, recved, port;
-    
 
     struct timeval tv;
 
@@ -109,6 +108,8 @@ int main(int argc, char *argv[])
 
             while (1)
             {
+                tv.tv_sec = 3;
+                tv.tv_usec = 0;
                 int newrv = select(localSocket + 1, &master_socks, NULL, NULL, &tv);
                 cout << newrv << endl;
                 if (newrv == 0 || waitKey(33.3333) == 27)
