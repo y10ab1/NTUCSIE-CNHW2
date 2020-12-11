@@ -109,11 +109,10 @@ int main(int argc, char **argv)
                 { //new socket
                     if ((remoteSocket[i] = accept(localSocket, (struct sockaddr *)&remoteAddr, (socklen_t *)&addrLen)) != -1)
                     {
-
-                        cout << "Connection accepted: " << remoteSocket[i] << endl;
-                        cout << "fdmax: " << fdmax << endl;
                         FD_SET(remoteSocket[i], &master_socks);
                         fdmax = (remoteSocket[i] > fdmax) ? remoteSocket[i] : fdmax;
+                        cout << "Connection accepted: " << remoteSocket[i] << endl;
+                        cout << "fdmax: " << fdmax << endl;
                     }
                     else
                     {
@@ -130,7 +129,7 @@ int main(int argc, char **argv)
                     bzero(receiveMessage, sizeof(char) * BUFF_SIZE);
                     if ((recved = recv(remoteSocket[i], receiveMessage, sizeof(char) * BUFF_SIZE, 0)) < 0)
                     {
-                        cout<<"Socket: "<<remoteSocket[i]<<"has commands but fail\n";
+                        cout << "Socket: " << remoteSocket[i] << "has commands but fail\n";
                         cout << "recv failed, with received bytes = " << recved << endl;
                         break;
                     }
