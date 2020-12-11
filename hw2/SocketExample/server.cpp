@@ -104,11 +104,12 @@ int main(int argc, char **argv)
         {
             if (FD_ISSET(i, &command_socks))
             {
+                cout << "i: " << i << "has command\n";
                 if (i == localSocket)
                 { //new socket
                     if ((remoteSocket[i] = accept(localSocket, (struct sockaddr *)&remoteAddr, (socklen_t *)&addrLen)) != -1)
                     {
-                        
+
                         cout << "Connection accepted: " << remoteSocket << endl;
                         cout << "fdmax: " << fdmax << endl;
                         FD_SET(remoteSocket[i], &master_socks);
