@@ -167,8 +167,8 @@ int main(int argc, char **argv)
                             //VideoCapture cap(receiveMessage);
 
                             // get the resolution of the video
-                            int width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
-                            int height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+                            int width = cap[i].get(CV_CAP_PROP_FRAME_WIDTH);
+                            int height = cap[i].get(CV_CAP_PROP_FRAME_HEIGHT);
                             cout << width << ", " << height << endl;
 
                             //allocate container to load frames
@@ -239,7 +239,7 @@ int main(int argc, char **argv)
 
                     cout << "executing play:\n";
                     cout << "Socket: " << remoteSocket[i] << " i: " << i << "\n";
-                    cap >> imgServer;
+                    cap[i] >> imgServer;
                     cout << sizeof(imgServer.data) << imgSize;
                     cout << imgServer.data << endl;
                     if ((sent = send(remoteSocket[i], imgServer.data, imgSize, 0)) < 0)
