@@ -236,9 +236,11 @@ int main(int argc, char **argv)
                     break;
                 case 2:
                     /* play */
-                    cap >> imgServer;
-                    cout << "executing play:\n";
 
+                    cout << "executing play:\n";
+                    cout << "Socket: " << remoteSocket[i] << " i: " << i << " has commands but fail\n";
+                    cap >> imgServer;
+                    
                     if ((sent = send(remoteSocket[i], imgServer.data, imgSize, 0)) < 0)
                     {
                         cerr << "bytes = " << sent << endl;
