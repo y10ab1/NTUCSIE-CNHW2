@@ -228,11 +228,12 @@ int main(int argc, char **argv)
                 {
                 case 1:
                     /* ls */
-                    cout << "executing ls\n";
+                    cout << "executing ls:\n";
                     break;
                 case 2:
                     /* play */
                     cap >> imgServer;
+                    cout << "executing play:\n";
 
                     if ((sent = send(remoteSocket, imgServer.data, imgSize, 0)) < 0)
                     {
