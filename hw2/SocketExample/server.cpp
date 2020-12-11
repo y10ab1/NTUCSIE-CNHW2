@@ -29,7 +29,6 @@ int main(int argc, char **argv)
     FD_ZERO(&master_socks);
     FD_ZERO(&command_socks);
     int status[100] = {0};
-    
 
     struct timeval tv;
 
@@ -84,7 +83,10 @@ int main(int argc, char **argv)
         //todo : select
         fdmax = (remoteSocket > fdmax) ? remoteSocket : fdmax;
 
-        select(fdmax + 1, &command_socks, NULL, NULL, NULL);
+        tv.tv_sec = 2;
+        tv.tv_usec = 0;
+
+        select(fdmax + 1, &command_socks, NULL, NULL, &tv);
 
         int sent;
         std::cout << "Waiting for connections...\n"
@@ -145,7 +147,6 @@ int main(int argc, char **argv)
                         else if (strncmp("play", receiveMessage, 4) == 0)
                         {
                             status[i] = 2;
-                            
 
                             // server
 
@@ -157,7 +158,6 @@ int main(int argc, char **argv)
                             VideoCapture cap("./tmp.mpg");
                             //filename[i]=receiveMessage;
                             //VideoCapture cap(receiveMessage);
-                            
 
                             // get the resolution of the video
                             int width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
@@ -256,5 +256,3 @@ int main(int argc, char **argv)
     }
     return 0;
 }
-
-
