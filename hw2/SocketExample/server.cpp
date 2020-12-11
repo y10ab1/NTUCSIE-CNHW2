@@ -14,6 +14,7 @@
 
 using namespace std;
 using namespace cv;
+VideoCapture capglocal;
 int main(int argc, char **argv)
 {
 
@@ -25,7 +26,7 @@ int main(int argc, char **argv)
     FD_ZERO(&master_socks);
     FD_ZERO(&command_socks);
     int status[100] = {0};
-    VideoCapture capglocal;
+    
 
     struct timeval tv;
 
@@ -252,93 +253,3 @@ int main(int argc, char **argv)
 }
 
 
-/* void command(int sockfd)
-{
-    /*receive command*/
-    char receiveMessage[BUFF_SIZE] = {};
-
-    bzero(receiveMessage, sizeof(char) * BUFF_SIZE);
-    if ((recved = recv(remoteSocket, receiveMessage, sizeof(char) * BUFF_SIZE, 0)) < 0)
-    {
-        cout << "recv failed, with received bytes = " << recved << endl;
-        break;
-    }
-    else if (recved == 0)
-    {
-        cout << "<end>\n";
-        break;
-    }
-    printf("word len: %d: %s\n", recved, receiveMessage);
-
-    /*check commands*/
-    if (strncmp("ls", receiveMessage, 2) == 0)
-    {
-        cout << "recived: " << receiveMessage << "\n";
-        // sent = send(remoteSocket,Message,strlen(Message),0);
-    }
-    else if (strncmp("play", receiveMessage, 4) == 0)
-    {
-
-        // server
-
-        Mat imgServer;
-        bzero(receiveMessage, sizeof(char) * BUFF_SIZE);
-
-        recv(remoteSocket, receiveMessage, sizeof(char) * BUFF_SIZE, 0);
-        cout << "videoname: " << receiveMessage << "\n";
-        //VideoCapture cap("./tmp.mpg");
-        VideoCapture cap(receiveMessage);
-
-        // get the resolution of the video
-        int width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
-        int height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
-        cout << width << ", " << height << endl;
-
-        //allocate container to load frames
-
-        imgServer = Mat::zeros(height, width, CV_8UC3);
-
-        sprintf(Message, "%d", width);
-        sent = send(remoteSocket, Message, strlen(Message), 0);
-        bzero(Message, sizeof(char) * BUFF_SIZE);
-        sleep(1);
-        sprintf(Message, "%d", height);
-        sent = send(remoteSocket, Message, strlen(Message), 0);
-        int imgSize = imgServer.total() * imgServer.elemSize();
-        // ensure the memory is continuous (for efficiency issue.)
-        if (!imgServer.isContinuous())
-        {
-            imgServer = imgServer.clone();
-        }
-
-        while (1)
-        {
-            //get a frame from the video to the container on server.
-            cap >> imgServer;
-
-            if ((sent = send(remoteSocket, imgServer.data, imgSize, 0)) < 0)
-            {
-                cerr << "bytes = " << sent << endl;
-
-                break;
-            }
-            cout << "sent bytes: " << sent << endl;
-        }
-    }
-    else if (strncmp("put", receiveMessage, 3) == 0)
-    {
-    }
-    else if (strncmp("get", receiveMessage, 3) == 0)
-    {
-    }
-    else if (strncmp("close", receiveMessage, 5) == 0)
-    {
-        close(remoteSocket);
-        remoteSocket = -2;
-        cout << "close Socket.\n\n";
-    }
-    else
-    {
-        cout << "Command not found.\n";
-    }
-} */
