@@ -111,9 +111,9 @@ int main(int argc, char **argv)
                     if ((newsockfd = accept(localSocket, (struct sockaddr *)&remoteAddr, (socklen_t *)&addrLen)) != -1)
                     {
                         remoteSocket[newsockfd] = newsockfd;
-                        FD_SET(remoteSocket[i], &master_socks);
-                        fdmax = (remoteSocket[i] > fdmax) ? remoteSocket[i] : fdmax;
-                        cout << "Connection accepted: " << remoteSocket[i] << endl;
+                        FD_SET(remoteSocket[newsockfd], &master_socks);
+                        fdmax = (remoteSocket[newsockfd] > fdmax) ? remoteSocket[newsockfd] : fdmax;
+                        cout << "Connection accepted: " << remoteSocket[newsockfd] << endl;
                         cout << "fdmax: " << fdmax << endl;
                     }
                     else
