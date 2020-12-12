@@ -250,7 +250,7 @@ int main(int argc, char **argv)
                         string s;
                         char msg[BUFF_SIZE] = {};
                         ff >> msg;
-                        if ((msg == EOF) || (sent = send(remoteSocket[i], msg, sizeof(msg), 0)) < 0)
+                        if ((msg[0] == EOF) || (sent = send(remoteSocket[i], msg, sizeof(msg), 0)) < 0)
                         {
 
                             cerr << "bytes = " << sent << endl;
