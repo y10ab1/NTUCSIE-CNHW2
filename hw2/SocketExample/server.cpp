@@ -311,13 +311,13 @@ int main(int argc, char **argv)
                         cout << "executing get\n";
                         string s;
                         char msg[BUFF_SIZE] = {};
-                        char ch[BUFF_SIZE] = {};
+                        char ch;
                         //bool get = getline(ff, s);
                         cout << s << endl;
                         strcpy(msg, s.c_str());
                         //bool get = ff.eof();
 
-                        ff.getline(ch);
+                        ff.get(ch);
                         cout << ch << endl;
                         tv.tv_sec = 3;
                         tv.tv_usec = 0;
