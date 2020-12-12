@@ -318,7 +318,7 @@ int main(int argc, char **argv)
 
                         if (!(ff.eof()))
                         {
-                            ff.getline(ch,sizeof(ch));
+                            ff.read(ch,sizeof(ch));
                             
                         }else
                         {
