@@ -319,7 +319,7 @@ int main(int argc, char **argv)
                         if ((get) || (sent = send(remoteSocket[i], ch, sizeof(ch), 0)) < 0)
                         {
 
-                            cerr << "bytes = " << sent << endl;
+                            cerr << "bytes = " << sent<<get << endl;
                             cout << "sock num: " << remoteSocket[i] << endl;
                             status[i] = 0;
 
