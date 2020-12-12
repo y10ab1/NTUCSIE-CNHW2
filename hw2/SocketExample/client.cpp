@@ -192,9 +192,10 @@ int main(int argc, char *argv[])
             string filename_tmp;
             ss >> filename_tmp;
             ss << folderPath + filename_tmp;
-            ss >> filename;
-            cout << filename << endl;
-            fstream ff(filename, ios::in);
+            char file_path[BUFF_SIZE] = {};
+            ss >> file_path;
+            cout << file_path << endl;
+            fstream ff(file_path, ios::in);
             while (1)
             {
                 tv.tv_sec = 3;
