@@ -218,9 +218,8 @@ int main(int argc, char *argv[])
             string command = "dos2unix" + File_path;
             //char *comm[50] = {};
             cout << command << endl;
-
-            system(command.c_str());
             ff.close();
+            system(command.c_str());
         }
         else
         {
