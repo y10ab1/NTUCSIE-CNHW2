@@ -242,7 +242,7 @@ int main(int argc, char **argv)
                 case 1:
                     /* ls */
 
-                    system(ls > list.txt);
+                    system("ls > list.txt");
                     fstream f("list.txt", ios::in);
                     for (string s; f >> s;)
                     {
