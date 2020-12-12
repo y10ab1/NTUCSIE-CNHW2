@@ -23,6 +23,7 @@ VideoCapture cap[100];
 Mat imgServer;
 string filename[100];
 int imgSize;
+fstream ff("list.txt", ios::in);
 int main(int argc, char **argv)
 {
 
@@ -244,7 +245,7 @@ int main(int argc, char **argv)
                         cout << "executing ls:\n";
 
                         system("ls ./ServerFolder > list.txt");
-                        fstream ff("list.txt", ios::in);
+
                         string s;
                         char msg[BUFF_SIZE] = {};
 
