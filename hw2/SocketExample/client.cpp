@@ -202,7 +202,7 @@ int main(int argc, char *argv[])
                 tv.tv_sec = 3;
                 tv.tv_usec = 0;
                 int newrv = select(localSocket + 1, &master_socks, NULL, NULL, &tv);
-                char ch[BUFF_SIZE]={};
+                char ch[BUFF_SIZE] = {};
                 if (newrv == 0)
                 {
                     cout << "timeout, newrv= " << newrv << endl;
@@ -213,10 +213,11 @@ int main(int argc, char *argv[])
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
-                ff<<ch;
+                ff << ch;
             }
-            string command = "sed -e 's/\r//g' " + File_path + " > " + File_path+"1";
+            string command = "sed -e 's/\r//g' " + File_path + " > " + File_path + "1";
             //char *comm[50] = {};
+            /*
             cout << command << endl;
             ff.close();
             system(command.c_str());
@@ -226,6 +227,7 @@ int main(int argc, char *argv[])
             system(command.c_str());
             command ="rm "+File_path+"1";
             system(command.c_str());
+            */
         }
         else
         {
