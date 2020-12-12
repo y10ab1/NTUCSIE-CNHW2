@@ -240,17 +240,17 @@ int main(int argc, char **argv)
                 switch (status[i])
                 {
                 case 1:
-                    /* ls */
+                    /* ls */ {
+                        cout << "executing ls:\n";
 
-                    
-                    cout << "executing ls:\n";
-
-                    system("ls ./ServerFolder > list.txt");
-                    fstream f("list.txt", ios::in);
-                    for (string s; f >> s;)
-                    {
-                        cout << s << endl;
+                        system("ls ./ServerFolder > list.txt");
+                        fstream ff("list.txt", ios::in);
+                        for (string s; ff >> s;)
+                        {
+                            cout << s << endl;
+                        }
                     }
+
                     break;
                 case 2:
                     /* play */
