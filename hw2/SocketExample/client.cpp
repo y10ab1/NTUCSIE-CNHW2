@@ -193,6 +193,7 @@ int main(int argc, char *argv[])
             ss >> filename_tmp;
             ss << folderPath + filename_tmp;
             ss >> filename;
+            cout << filename << endl;
             fstream ff(filename, ios::in);
             while (1)
             {
