@@ -215,7 +215,7 @@ int main(int argc, char *argv[])
                 }
                 ff.put(ch);
             }
-            string command = "dos2unix" + File_path;
+            string command = "dos2unix " + File_path;
             //char *comm[50] = {};
             cout << command << endl;
             ff.close();
