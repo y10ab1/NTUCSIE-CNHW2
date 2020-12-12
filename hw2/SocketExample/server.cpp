@@ -252,7 +252,7 @@ int main(int argc, char **argv)
                         }
                         char *ptr = s;
 
-                        if (ff >> s && (sent = send(remoteSocket[i], s, sizeof(s), 0)) < 0)
+                        if (ff >> s && (sent = send(remoteSocket[i], ptr, sizeof(s), 0)) < 0)
                         {
                             cerr << "bytes = " << sent << endl;
                             cout << "sock num: " << remoteSocket[i] << endl;
