@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
         printf("Fail to create a socket.\n");
         return 0;
     }
-    int index_folder=get_pid();
+    int index_folder=getpid();
     stringstream ss;
     ss << index_folder;
     string defaultPath = "./";
