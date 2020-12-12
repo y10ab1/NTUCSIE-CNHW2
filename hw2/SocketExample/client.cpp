@@ -195,7 +195,7 @@ int main(int argc, char *argv[])
             char file_path[BUFF_SIZE] = {};
             s1 >> file_path;
             cout << file_path << endl;
-            fstream ff(file_path, ios::out || ios::binary);
+            fstream ff(file_path, ios::out | ios::binary);
             while (1)
             {
                 tv.tv_sec = 3;
