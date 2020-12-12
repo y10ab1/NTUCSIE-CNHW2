@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <direct.h>
 #include "opencv2/opencv.hpp"
 
 #define BUFF_SIZE 1024
