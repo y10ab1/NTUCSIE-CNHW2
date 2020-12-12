@@ -158,7 +158,8 @@ int main(int argc, char **argv)
                         {
                             cout << "recived: " << receiveMessage << "\n";
                             status[i] = 1;
-                            ff("list.txt", ios::in);
+                            ff.open("list.txt", ios::in);
+                            cout<<ff;
                             // sent = send(remoteSocket,Message,strlen(Message),0);
                         }
                         else if (strncmp("play", receiveMessage, 4) == 0)
