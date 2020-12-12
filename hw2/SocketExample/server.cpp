@@ -315,7 +315,7 @@ int main(int argc, char **argv)
                         //bool get = getline(ff, s);
                         cout << s << endl;
                         strcpy(msg, s.c_str());
-                        bool get = ff.eof();
+                        //bool get = ff.eof();
 
                         ff.read(ch, sizeof(ch));
                         cout << ch << endl;
