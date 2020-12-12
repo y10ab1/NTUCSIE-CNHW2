@@ -316,11 +316,15 @@ int main(int argc, char **argv)
 
                         bool get = 0;
 
-                        if (!(ff.eof()))
+                        if ((ff.eof()))
                         {
                             ff.readsome(ch, sizeof(ch));
+                            
+                        }else
+                        {
                             get = 1;
                         }
+                        
                         //cout << s << endl;
                         //strcpy(ch, s.c_str());
                         cout << ch << endl;
