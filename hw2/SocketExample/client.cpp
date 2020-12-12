@@ -211,7 +211,7 @@ int main(int argc, char *argv[])
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
-                ff << receiveMessage << endl;
+                ff << receiveMessage ;
             }
             ff.close();
         }
