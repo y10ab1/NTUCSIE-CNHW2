@@ -220,14 +220,15 @@ int main(int argc, char **argv)
                         }
                         else if (strncmp("get", receiveMessage, 3) == 0)
                         {
+                            bzero(receiveMessage, sizeof(char) * BUFF_SIZE);
+                            if ((recved = recv(remoteSocket[i], receiveMessage, sizeof(char) * BUFF_SIZE, 0)) < 0)
+                            {
+                                cout << "Socket: " << remoteSocket[i] << " i: " << i << " has commands but fail\n";
+                                cout << "recv failed in get, with received bytes = " << recved << endl;
+                                break;
+                            }
                             status[i] = 4;
-                        }
-                        else if (strncmp("close", receiveMessage, 5) == 0)
-                        {
-                            //status[i] = 5;
-                            close(remoteSocket[i]);
-                            //remoteSocket = -2;
-                            cout << "close Socket.\n\n";
+                            ff.open(receiveMessage, ios::in);
                         }
                         else
                         {
@@ -304,8 +305,24 @@ int main(int argc, char **argv)
                     cout << "executing put\n";
                     break;
                 case 4:
-                    /* get */
-                    cout << "executing get\n";
+                    /* get */ {
+                        cout << "executing get\n";
+                        string s;
+                        char msg[BUFF_SIZE] = {};
+                        ff >> msg;
+                        if ((msg[0] == '\0') || (sent = send(remoteSocket[i], msg, sizeof(msg), 0)) < 0)
+                        {
+
+                            cerr << "bytes = " << sent << endl;
+                            cout << "sock num: " << remoteSocket[i] << endl;
+                            status[i] = 0;
+
+                            cout << "end of ls\n";
+                            ff.close();
+                        }
+                        cout << msg << endl;
+                    }
+
                     break;
 
                 default:

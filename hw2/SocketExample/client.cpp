@@ -10,6 +10,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sstream>
+#include <fstream>
 
 #include "opencv2/opencv.hpp"
 
@@ -174,21 +175,37 @@ int main(int argc, char *argv[])
         else if (strncmp("put", Message, 3) == 0)
         {
             sent = send(localSocket, Message, strlen(Message), 0);
-
-            cin >> Message; //file name
-            sent = send(localSocket, Message, strlen(Message), 0);
+            char filename[BUFF_SIZE] = {};
+            cin >> filename; //file name
+            sleep(1);
+            sent = send(localSocket, filename, strlen(filename), 0);
         }
         else if (strncmp("get", Message, 3) == 0)
         {
             sent = send(localSocket, Message, strlen(Message), 0);
+            char filename[BUFF_SIZE] = {};
+            cin >> filename; //file name
+            sleep(1);
+            sent = send(localSocket, filename, strlen(filename), 0);
+            fstream ff(folderPath + filename, ios::in);
+            while (1)
+            {
+                tv.tv_sec = 3;
+                tv.tv_usec = 0;
+                int newrv = select(localSocket + 1, &master_socks, NULL, NULL, &tv);
+                if (newrv == 0)
+                {
+                    cout << "timeout, newrv= " << newrv << endl;
 
-            cin >> Message; //file name
-            sent = send(localSocket, Message, strlen(Message), 0);
-        }
-        else if (strncmp("close", Message, 5) == 0)
-        {
-            sent = send(localSocket, Message, strlen(Message), 0);
-            break;
+                    break;
+                }
+                else if ((recved = recv(localSocket, receiveMessage, sizeof(char) * BUFF_SIZE, 0)) == -1)
+                {
+                    cerr << "recv failed, received bytes = " << recved << endl;
+                }
+                ff << receiveMessage << endl;
+            }
+            ff.close();
         }
         else
         {
