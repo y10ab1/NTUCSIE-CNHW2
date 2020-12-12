@@ -242,19 +242,22 @@ int main(int argc, char **argv)
                     if (setsockopt(remoteSocket[i], SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout,
                                    sizeof(timeout)) < 0)
                         cerr << "setsockopt failed\n";
-                    if ((sent = send(remoteSocket[i], imgServer.data, imgSize, 0)) < 0)
+                    if (imgServer.empty() || (sent = send(remoteSocket[i], imgServer.data, imgSize, 0)) < 0)
                     {
                         cerr << "bytes = " << sent << endl;
+                        status[i] = 0;
+                        cap[i].release();
+                        cout << "end of video\n";
 
                         //send(remoteSocket[i], imgServer.data, imgSize, 0);
                         //break;
-                    }
+                    } /*
                     if (imgServer.empty())
                     {
                         status[i] = 0;
                         cap[i].release();
                         cout << "end of video\n";
-                    }
+                    }*/
                     //cout << "sent bytes: " << sent << endl;
 
                     break;
