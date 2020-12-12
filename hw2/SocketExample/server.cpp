@@ -318,7 +318,7 @@ int main(int argc, char **argv)
 
                         if ((ff.eof()))
                         {
-                            ff.get(ch, sizeof(ch));
+                            ff.get(ch, BUFF_SIZE);
                             
                         }else
                         {
