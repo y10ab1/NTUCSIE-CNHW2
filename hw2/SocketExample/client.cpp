@@ -187,7 +187,8 @@ int main(int argc, char *argv[])
             cin >> filename; //file name
             sleep(1);
             sent = send(localSocket, filename, strlen(filename), 0);
-            stringstream ss << filename;
+            stringstream ss;
+            ss << filename;
             string filename_tmp;
             ss >> filename_tmp;
             fstream ff(folderPath + filename_tmp, ios::in);
