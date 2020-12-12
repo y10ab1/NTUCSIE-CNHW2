@@ -316,9 +316,9 @@ int main(int argc, char **argv)
 
                         bool get = 0;
 
-                        if ((ff.eof()))
+                        if (!(ff.eof()))
                         {
-                            ff.get(ch, BUFF_SIZE);
+                            ff.getline(ch,sizeof(ch));
                             
                         }else
                         {
