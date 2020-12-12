@@ -246,14 +246,11 @@ int main(int argc, char **argv)
                         system("ls ./ServerFolder > list.txt");
                         fstream ff("list.txt", ios::in);
                         string s;
-                        for (; ff >> s;)
-                        {
-                            cout << s << endl;
-                        }
-                        char *ptr = s;
+                        char msg[BUFF_SIZE] = {};
 
-                        if (ff >> s && (sent = send(remoteSocket[i], ptr, sizeof(s), 0)) < 0)
+                        if (ff >> msg && (sent = send(remoteSocket[i], msg, sizeof(msg), 0)) < 0)
                         {
+
                             cerr << "bytes = " << sent << endl;
                             cout << "sock num: " << remoteSocket[i] << endl;
                             status[i] = 0;
@@ -263,6 +260,7 @@ int main(int argc, char **argv)
                             //send(remoteSocket[i], imgServer.data, imgSize, 0);
                             //break;
                         }
+                        cout << msg << endl;
                     }
 
                     break;
