@@ -314,8 +314,7 @@ int main(int argc, char **argv)
                         cout << s << endl;
                         strcpy(msg, s.c_str());
                         bool get = ff.eof();
-                        ff.getline(s);
-                        strcpy(ch, s.c_str());
+                        ff.read(ch,sizeof(ch));
 
                         if ((get) || (sent = send(remoteSocket[i], ch, sizeof(ch), 0)) < 0)
                         {
