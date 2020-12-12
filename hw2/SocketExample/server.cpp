@@ -241,7 +241,7 @@ int main(int argc, char **argv)
                     timeout.tv_usec = 0;
                     if (setsockopt(remoteSocket[i], SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout,
                                    sizeof(timeout)) < 0)
-                        cerr("setsockopt failed\n");
+                        cerr << "setsockopt failed\n";
                     if ((sent = send(remoteSocket[i], imgServer.data, imgSize, 0)) < 0)
                     {
                         cerr << "bytes = " << sent << endl;
