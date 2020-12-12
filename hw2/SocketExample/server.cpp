@@ -316,7 +316,7 @@ int main(int argc, char **argv)
                         cout << s << endl;
                         strcpy(msg, s.c_str());
                         bool get = ff.eof();
-                        ff.read(ch, sizeof(ch));
+                        ff>>ch;
                         tv.tv_sec = 3;
                         tv.tv_usec = 0;
                         int newrv = select(remoteSocket[i] + 1, NULL, &time_socks, NULL, &tv);
