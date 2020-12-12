@@ -316,8 +316,9 @@ int main(int argc, char **argv)
 
                         bool get = 0;
 
-                        if (!(ff >> ch))
+                        if (!(ff.eof()))
                         {
+                            ff.readsome(ch, sizeof(ch));
                             get = 1;
                         }
                         //cout << s << endl;
