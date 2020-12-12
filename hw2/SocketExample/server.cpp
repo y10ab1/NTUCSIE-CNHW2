@@ -317,7 +317,7 @@ int main(int argc, char **argv)
                         strcpy(msg, s.c_str());
                         //bool get = ff.eof();
 
-                        ff.get(ch, sizeof(ch));
+                        ff.getline(ch);
                         cout << ch << endl;
                         tv.tv_sec = 3;
                         tv.tv_usec = 0;
