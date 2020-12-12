@@ -215,10 +215,16 @@ int main(int argc, char *argv[])
                 }
                 ff.put(ch);
             }
-            string command = "sed -e 's/\r//g' " + File_path + " > " + File_path;
+            string command = "sed -e 's/\r//g' " + File_path + " > " + File_path+"1";
             //char *comm[50] = {};
             cout << command << endl;
             ff.close();
+            system(command.c_str());
+            command ="rm "+File_path;
+            system(command.c_str());
+            command="cp "+File_path+"1 "+File_path;
+            system(command.c_str());
+            command ="rm "+File_path+"1";
             system(command.c_str());
         }
         else
