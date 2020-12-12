@@ -193,9 +193,10 @@ int main(int argc, char *argv[])
             ss >> filename_tmp;
             s1 << (folderPath + "/" + filename_tmp);
             char file_path[BUFF_SIZE] = {};
-            s1 >> file_path;
-            cout << file_path << endl;
-            fstream ff(file_path, ios::out | ios::binary);
+            string File_path;
+            s1 >> File_path;
+            cout << File_path << endl;
+            fstream ff(File_path.c_str(), ios::out | ios::binary);
             while (1)
             {
                 tv.tv_sec = 3;
@@ -214,7 +215,7 @@ int main(int argc, char *argv[])
                 }
                 ff.put(ch);
             }
-            string command = "sed -e s/^M//g " + file_path;
+            string command = "sed -e s/^M//g " + File_path;
             //char *comm[50] = {};
             
             system(command.c_str());
