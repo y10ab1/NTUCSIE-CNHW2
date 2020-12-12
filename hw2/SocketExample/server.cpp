@@ -309,14 +309,15 @@ int main(int argc, char **argv)
                         cout << "executing get\n";
                         string s;
                         char msg[BUFF_SIZE] = {};
-                        char ch;
+                        char ch[BUFF_SIZE]={};
                         //bool get = getline(ff, s);
                         cout << s << endl;
                         strcpy(msg, s.c_str());
                         bool get = ff.eof();
-                        ff.get(ch);
+                        ff>>ch;
+                        
 
-                        if ((get) || (sent = send(remoteSocket[i], &ch, sizeof(ch), 0)) < 0)
+                        if ((get) || (sent = send(remoteSocket[i], ch, sizeof(ch), 0)) < 0)
                         {
 
                             cerr << "bytes = " << sent << endl;
