@@ -1,4 +1,4 @@
-CC = g++
+CC = `g++ -std=c++11`
 OPENCV =  `pkg-config --cflags --libs opencv`
 PTHREAD = -pthread
 
