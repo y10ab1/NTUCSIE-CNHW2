@@ -41,6 +41,17 @@ int main(int argc, char *argv[])
         return 0;
     }
 
+    string defaultPath = "./";
+    string Client_index = to_string(localSocket);
+    string folderPath = defaultPath + "Client_"+Client_index+"_Folder";
+
+    if (0 != access(folderPath.c_str(), 0))
+    {
+        // if this folder not exist, create a new one.
+        mkdir(folderPath.c_str());
+        //換成 ::_mkdir  ::_access 也行，不知道什麼意思
+    }
+
     struct sockaddr_in info;
     bzero(&info, sizeof(info));
 

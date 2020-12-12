@@ -44,6 +44,16 @@ int main(int argc, char **argv)
         port = atoi(argv[1]);
     }
 
+    string defaultPath = "./";
+    string folderPath = defaultPath + "ServerFolder";
+
+    if (0 != access(folderPath.c_str(), 0))
+    {
+        // if this folder not exist, create a new one.
+        mkdir(folderPath.c_str());
+        //換成 ::_mkdir  ::_access 也行，不知道什麼意思
+    }
+
     int recved;
 
     struct sockaddr_in localAddr, remoteAddr;
