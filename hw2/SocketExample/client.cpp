@@ -103,6 +103,7 @@ int main(int argc, char *argv[])
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
+                cout << receiveMessage << endl;
             }
         }
         else if (strncmp("play", Message, 4) == 0)
