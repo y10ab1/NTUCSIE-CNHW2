@@ -318,7 +318,7 @@ int main(int argc, char **argv)
 
                         if (!(ff.eof()))
                         {
-                            ff.readsome(ch,sizeof(ch));
+                            ff.read(ch,sizeof(ch));
                             
                         }else
                         {
