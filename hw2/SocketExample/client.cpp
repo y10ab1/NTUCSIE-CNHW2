@@ -201,17 +201,18 @@ int main(int argc, char *argv[])
                 tv.tv_sec = 3;
                 tv.tv_usec = 0;
                 int newrv = select(localSocket + 1, &master_socks, NULL, NULL, &tv);
+                char ch;
                 if (newrv == 0)
                 {
                     cout << "timeout, newrv= " << newrv << endl;
 
                     break;
                 }
-                else if ((recved = recv(localSocket, receiveMessage, sizeof(char) * BUFF_SIZE, 0)) == -1)
+                else if ((recved = recv(localSocket, &ch, sizeof(ch) /* * BUFF_SIZE*/, 0)) == -1)
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
-                ff << receiveMessage ;
+                ff.put(ch);
             }
             ff.close();
         }

@@ -326,7 +326,7 @@ int main(int argc, char **argv)
                             cout << "end of get\n";
                             ff.close();
                         }
-                        cout << msg << endl;
+                        cout << ch << endl;
                     }
 
                     break;
