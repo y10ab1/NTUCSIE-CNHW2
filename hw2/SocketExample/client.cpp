@@ -215,9 +215,10 @@ int main(int argc, char *argv[])
                 }
                 ff.put(ch);
             }
-            string command = "sed -e s/^M//g " + File_path;
+            string command = "sed -e 's/^M//g' " + File_path;
             //char *comm[50] = {};
-            
+            cout << command << endl;
+
             system(command.c_str());
             ff.close();
         }
