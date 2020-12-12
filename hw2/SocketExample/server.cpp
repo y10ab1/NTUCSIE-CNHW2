@@ -170,6 +170,7 @@ int main(int argc, char **argv)
                             imgServer = Mat::zeros(height, width, CV_8UC3);
 
                             sprintf(Message, "%d", width);
+                            cout << "Message" << Message << endl;
                             sent = send(remoteSocket[i], Message, strlen(Message), 0);
                             bzero(Message, sizeof(char) * BUFF_SIZE);
                             sleep(1);
