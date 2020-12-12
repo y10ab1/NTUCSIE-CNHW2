@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
         printf("Fail to create a socket.\n");
         return 0;
     }
-    int index_folder=getpid();
+    int index_folder = getpid();
     stringstream ss;
     ss << index_folder;
     string defaultPath = "./";
@@ -88,7 +88,22 @@ int main(int argc, char *argv[])
         {
 
             sent = send(localSocket, Message, strlen(Message), 0);
-            //recved = recv(localSocket,receiveMessage,sizeof(char)*BUFF_SIZE,0);
+            while (1)
+            {
+                tv.tv_sec = 3;
+                tv.tv_usec = 0;
+                int newrv = select(localSocket + 1, &master_socks, NULL, NULL, &tv);
+                if (newrv == 0)
+                {
+                    cout << "timeout, newrv= " << newrv << endl;
+
+                    break;
+                }
+                else if ((recved = recv(localSocket, receiveMessage, sizeof(char) * BUFF_SIZE, 0)) == -1)
+                {
+                    cerr << "recv failed, received bytes = " << recved << endl;
+                }
+            }
         }
         else if (strncmp("play", Message, 4) == 0)
         {

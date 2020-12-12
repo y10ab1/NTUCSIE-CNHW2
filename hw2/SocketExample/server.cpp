@@ -245,9 +245,22 @@ int main(int argc, char **argv)
 
                         system("ls ./ServerFolder > list.txt");
                         fstream ff("list.txt", ios::in);
-                        for (string s; ff >> s;)
+                        string s;
+                        for (; ff >> s;)
                         {
                             cout << s << endl;
+                        }
+
+                        if (ff >> s && (sent = send(remoteSocket[i], s, sizeof(s), 0)) < 0)
+                        {
+                            cerr << "bytes = " << sent << endl;
+                            cout << "sock num: " << remoteSocket[i] << endl;
+                            status[i] = 0;
+
+                            cout << "end of video\n";
+
+                            //send(remoteSocket[i], imgServer.data, imgSize, 0);
+                            //break;
                         }
                     }
 
