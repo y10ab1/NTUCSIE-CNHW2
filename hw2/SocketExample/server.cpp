@@ -311,9 +311,7 @@ int main(int argc, char **argv)
                         char msg[BUFF_SIZE] = {};
                         getline(ff, s);
                         cout << s << endl;
-                        stringstream ss;
-                        ss << s;
-                        ss >> msg;
+                        strcpt(msg, s.c_str());
                         if ((msg[0] == '\0') || (sent = send(remoteSocket[i], msg, sizeof(msg), 0)) < 0)
                         {
 
