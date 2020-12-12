@@ -310,6 +310,7 @@ int main(int argc, char **argv)
                         string s;
                         char msg[BUFF_SIZE] = {};
                         getline(ff, s);
+                        cout << s << endl;
                         stringstream ss;
                         ss << s;
                         ss >> msg;
