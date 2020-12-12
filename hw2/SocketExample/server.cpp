@@ -228,7 +228,7 @@ int main(int argc, char **argv)
                                 break;
                             }
                             status[i] = 4;
-                            ff.open(receiveMessage, ios::binary);
+                            ff.open(receiveMessage, ios::in);
                         }
                         else
                         {
