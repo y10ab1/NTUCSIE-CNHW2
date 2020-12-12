@@ -213,7 +213,7 @@ int main(int argc, char *argv[])
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
-                ff << ch;
+                ff.write(ch, sizeof(ch));
             }
             string command = "sed -e 's/\r//g' " + File_path + " > " + File_path + "1";
             //char *comm[50] = {};
