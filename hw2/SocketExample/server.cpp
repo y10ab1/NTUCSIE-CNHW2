@@ -158,7 +158,7 @@ int main(int argc, char **argv)
                         {
                             cout << "recived: " << receiveMessage << "\n";
                             status[i] = 1;
-                            ff.open("list.txt", ios::in);
+                            ff("list.txt", ios::in);
                             // sent = send(remoteSocket,Message,strlen(Message),0);
                         }
                         else if (strncmp("play", receiveMessage, 4) == 0)
@@ -258,9 +258,6 @@ int main(int argc, char **argv)
                             status[i] = 0;
 
                             cout << "end of ls\n";
-
-                            //send(remoteSocket[i], imgServer.data, imgSize, 0);
-                            //break;
                         }
                         cout << msg << endl;
                     }
