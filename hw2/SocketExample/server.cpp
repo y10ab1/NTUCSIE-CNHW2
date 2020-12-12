@@ -309,7 +309,7 @@ int main(int argc, char **argv)
                         cout << "executing get\n";
                         string s;
                         char msg[BUFF_SIZE] = {};
-                        ff >> msg;
+                        getline(ff, msg);
                         if ((msg[0] == '\0') || (sent = send(remoteSocket[i], msg, sizeof(msg), 0)) < 0)
                         {
 
