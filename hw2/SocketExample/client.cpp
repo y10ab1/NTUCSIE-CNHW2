@@ -187,7 +187,7 @@ int main(int argc, char *argv[])
             cin >> filename; //file name
             sleep(1);
             sent = send(localSocket, filename, strlen(filename), 0);
-            stringstream ss, s1;
+            stringstream ss, s1, s2;
             ss << filename;
             string filename_tmp;
             ss >> filename_tmp;
@@ -215,7 +215,9 @@ int main(int argc, char *argv[])
                 ff.put(ch);
             }
             string command = "sed -e s/^M//g " + file_path;
-            system(command);
+            //char *comm[50] = {};
+            
+            system(command.c_str());
             ff.close();
         }
         else
