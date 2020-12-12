@@ -159,7 +159,7 @@ int main(int argc, char **argv)
                             cout << "recived: " << receiveMessage << "\n";
                             status[i] = 1;
                             ff.open("list.txt", ios::in);
-                            cout<<ff;
+                            //cout<<ff;
                             // sent = send(remoteSocket,Message,strlen(Message),0);
                         }
                         else if (strncmp("play", receiveMessage, 4) == 0)
@@ -251,7 +251,7 @@ int main(int argc, char **argv)
                         string s;
                         char msg[BUFF_SIZE] = {};
                         ff >> msg;
-                        if ((msg[0] == EOF) || (sent = send(remoteSocket[i], msg, sizeof(msg), 0)) < 0)
+                        if ((msg[0] == '\0') || (sent = send(remoteSocket[i], msg, sizeof(msg), 0)) < 0)
                         {
 
                             cerr << "bytes = " << sent << endl;
