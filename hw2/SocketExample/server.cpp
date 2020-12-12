@@ -250,6 +250,7 @@ int main(int argc, char **argv)
                         {
                             cout << s << endl;
                         }
+                        char *ptr = s;
 
                         if (ff >> s && (sent = send(remoteSocket[i], s, sizeof(s), 0)) < 0)
                         {
