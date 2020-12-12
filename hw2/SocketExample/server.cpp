@@ -240,6 +240,8 @@ int main(int argc, char **argv)
 
             if (FD_ISSET(i, &master_socks) && status[i] != 0)
             {
+                FD_ZERO(&time_socks);
+                FD_SET(remoteSocket[i], &time_socks);
                 cout << "******executing sth******\n";
                 switch (status[i])
                 {
@@ -317,7 +319,7 @@ int main(int argc, char **argv)
                         ff.read(ch, sizeof(ch));
                         tv.tv_sec = 3;
                         tv.tv_usec = 0;
-                        int newrv = select(localSocket + 1, &master_socks, NULL, NULL, &tv);
+                        int newrv = select(remoteSocket[i] + 1, &time_socks, NULL, NULL, &tv);
                         if (newrv == 0)
                         {
                             cout << "timeout, newrv= " << newrv << endl;
