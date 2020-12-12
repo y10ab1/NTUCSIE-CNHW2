@@ -318,7 +318,7 @@ int main(int argc, char **argv)
 
                         if (!(ff.eof()))
                         {
-                            for(int k=0;k<1024;++k){
+                            for(int k=0;k<1024&&(!(ff.eof()));++k){
                                 ff.get(ch[k]);
                             }
                             //ff.read(ch,sizeof(ch));
