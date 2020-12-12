@@ -318,7 +318,7 @@ int main(int argc, char **argv)
                         bool get = ff.eof();
 
                         ff >> ch;
-                        cout << *ch < endl;
+                        cout << ch << endl;
                         tv.tv_sec = 3;
                         tv.tv_usec = 0;
                         int newrv = select(remoteSocket[i] + 1, NULL, &time_socks, NULL, &tv);
