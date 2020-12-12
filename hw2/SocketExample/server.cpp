@@ -331,7 +331,7 @@ int main(int argc, char **argv)
                             ff.close();
                             break;
                         }
-                        else if ((sent = send(remoteSocket[i], ch, sizeof(ch), 0)) < 0)
+                        else if ((sent = send(remoteSocket[i], &ch, sizeof(ch), 0)) < 0)
                         {
 
                             cerr << "bytes = " << sent << endl;
