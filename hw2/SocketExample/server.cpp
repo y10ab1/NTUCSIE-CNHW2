@@ -259,6 +259,7 @@ int main(int argc, char **argv)
                             status[i] = 0;
 
                             cout << "end of ls\n";
+                            ff.close("list.txt");
                         }
                         cout << msg << endl;
                     }
