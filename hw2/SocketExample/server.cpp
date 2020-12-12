@@ -242,14 +242,15 @@ int main(int argc, char **argv)
                 case 1:
                     /* ls */
 
-                    system("ls > list.txt");
+                    
+                    cout << "executing ls:\n";
+
+                    system("ls ./ServerFolder > list.txt");
                     fstream f("list.txt", ios::in);
                     for (string s; f >> s;)
                     {
                         cout << s << endl;
                     }
-
-                    cout << "executing ls:\n";
                     break;
                 case 2:
                     /* play */
