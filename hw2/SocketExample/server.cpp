@@ -316,7 +316,7 @@ int main(int argc, char **argv)
 
                         bool get = 0;
 
-                        if (ff >> s)
+                        if (!(ff >> s))
                         {
                             get = 1;
                         }
