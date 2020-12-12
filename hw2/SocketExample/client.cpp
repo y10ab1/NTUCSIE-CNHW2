@@ -191,7 +191,9 @@ int main(int argc, char *argv[])
             ss << filename;
             string filename_tmp;
             ss >> filename_tmp;
-            fstream ff(folderPath + filename_tmp, ios::in);
+            ss << folderPath + filename_tmp;
+            ss >> filename;
+            fstream ff(filename, ios::in);
             while (1)
             {
                 tv.tv_sec = 3;
