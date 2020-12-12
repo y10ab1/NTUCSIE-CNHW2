@@ -7,7 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <direct.h>
+#include <sys/stat.h>
 #include "opencv2/opencv.hpp"
 
 #define BUFF_SIZE 1024
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     if (0 != access(folderPath.c_str(), 0))
     {
         // if this folder not exist, create a new one.
-        mkdir(folderPath.c_str());
+        mkdir(folderPath.c_str(),777);
         
     }
 
