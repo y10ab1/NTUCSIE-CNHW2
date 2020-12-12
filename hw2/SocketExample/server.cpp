@@ -245,6 +245,7 @@ int main(int argc, char **argv)
                     if (imgServer.empty() || (sent = send(remoteSocket[i], imgServer.data, imgSize, 0)) < 0)
                     {
                         cerr << "bytes = " << sent << endl;
+                        cout << "sock num: " << remoteSocket[i] << endl;
                         status[i] = 0;
                         cap[i].release();
                         cout << "end of video\n";
