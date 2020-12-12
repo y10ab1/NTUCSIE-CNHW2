@@ -1,7 +1,6 @@
 #include <iostream>
 #include <sstream>
 #include <stdio.h>
-#include <io.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <sys/ioctl.h>
