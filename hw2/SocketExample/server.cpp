@@ -51,7 +51,7 @@ int main(int argc, char **argv)
     {
         // if this folder not exist, create a new one.
         mkdir(folderPath.c_str());
-        //換成 ::_mkdir  ::_access 也行，不知道什麼意思
+        
     }
 
     int recved;
