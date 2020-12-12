@@ -187,13 +187,13 @@ int main(int argc, char *argv[])
             cin >> filename; //file name
             sleep(1);
             sent = send(localSocket, filename, strlen(filename), 0);
-            stringstream ss;
+            stringstream ss, s1;
             ss << filename;
             string filename_tmp;
             ss >> filename_tmp;
-            ss << folderPath + filename_tmp;
+            s1 << (folderPath + filename_tmp);
             char file_path[BUFF_SIZE] = {};
-            ss >> file_path;
+            s1 >> file_path;
             cout << file_path << endl;
             fstream ff(file_path, ios::in);
             while (1)
