@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <sstream>
 
 #include "opencv2/opencv.hpp"
@@ -43,8 +44,9 @@ int main(int argc, char *argv[])
         printf("Fail to create a socket.\n");
         return 0;
     }
+    int index_folder=get_pid();
     stringstream ss;
-    ss << localSocket;
+    ss << index_folder;
     string defaultPath = "./";
     string Client_index;
     ss >> Client_index;
