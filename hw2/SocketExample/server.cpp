@@ -316,12 +316,12 @@ int main(int argc, char **argv)
 
                         bool get = 0;
 
-                        if (!(ff >> s))
+                        if (!(ff >> ch))
                         {
                             get = 1;
                         }
-                        cout << s << endl;
-                        strcpy(ch, s.c_str());
+                        //cout << s << endl;
+                        //strcpy(ch, s.c_str());
                         cout << ch << endl;
                         tv.tv_sec = 3;
                         tv.tv_usec = 0;
