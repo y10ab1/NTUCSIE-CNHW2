@@ -315,7 +315,7 @@ int main(int argc, char **argv)
                         strcpy(msg, s.c_str());
                         bool get = ff.eof();
                         ff.getline(s);
-                        strcpy(ch, s.c_str);
+                        strcpy(ch, s.c_str());
 
                         if ((get) || (sent = send(remoteSocket[i], ch, sizeof(ch), 0)) < 0)
                         {
