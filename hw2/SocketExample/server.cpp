@@ -240,6 +240,24 @@ int main(int argc, char **argv)
                 {
                 case 1:
                     /* ls */
+
+                    std::string inPath = "./ServerFolder/"; //遍歷資料夾下的所有檔案
+                    //用於查詢的控制代碼
+                    long handle;
+                    struct _finddata_t fileinfo;
+                    //第一次查詢
+                    handle = _findfirst(inPath.c_str(), &fileinfo);
+                    if (handle == -1)
+                        return -1;
+                    do
+                    {
+                        //找到的檔案的檔名
+                        printf("%s\n", fileinfo.name);
+
+                    } while (!_findnext(handle, &fileinfo));
+
+                    _findclose(handle);
+
                     cout << "executing ls:\n";
                     break;
                 case 2:
