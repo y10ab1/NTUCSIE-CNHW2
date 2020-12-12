@@ -214,7 +214,7 @@ int main(int argc, char *argv[])
                 }
                 ff.put(ch);
             }
-            system(sed - e 's/^M//g' file_path);
+            system(sed -e 's/^M//g' file_path);
             ff.close();
         }
         else
