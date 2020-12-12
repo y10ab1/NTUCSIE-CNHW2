@@ -318,7 +318,11 @@ int main(int argc, char **argv)
 
                         if (!(ff.eof()))
                         {
-                            ff.read(ch,sizeof(ch));
+                            for(int k=0;k<1024;++k){
+                                ff.get(ch[k]);
+                            }
+                            //ff.read(ch,sizeof(ch));
+                            //用get可以一個一個讀，但很久
                             
                         }else
                         {
