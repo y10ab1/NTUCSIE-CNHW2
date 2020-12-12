@@ -236,6 +236,12 @@ int main(int argc, char **argv)
                     cap[i] >> imgServer;
                     //cout << sizeof(imgServer.data) << imgSize;
                     //cout << imgServer.data << endl;
+                    struct timeval timeout;
+                    timeout.tv_sec = 3;
+                    timeout.tv_usec = 0;
+                    if (setsockopt(remoteSocket[i], SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout,
+                                   sizeof(timeout)) < 0)
+                        error("setsockopt failed\n");
                     if ((sent = send(remoteSocket[i], imgServer.data, imgSize, 0)) < 0)
                     {
                         cerr << "bytes = " << sent << endl;
