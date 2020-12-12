@@ -228,7 +228,7 @@ int main(int argc, char **argv)
                                 break;
                             }
                             status[i] = 4;
-                            ff.open(receiveMessage, ios::in|ios::binary);
+                            ff.open(receiveMessage, ios::in | ios::binary);
                         }
                         else
                         {
@@ -309,17 +309,21 @@ int main(int argc, char **argv)
                         cout << "executing get\n";
                         string s;
                         char msg[BUFF_SIZE] = {};
-                        bool get = getline(ff, s);
+                        char ch;
+                        //bool get = getline(ff, s);
                         cout << s << endl;
                         strcpy(msg, s.c_str());
-                        if ((!get) || (sent = send(remoteSocket[i], msg, sizeof(msg), 0)) < 0)
+                        bool get = ff.eof();
+                        ff.get(msg);
+
+                        if ((get) || (sent = send(remoteSocket[i], msg, sizeof(msg), 0)) < 0)
                         {
 
                             cerr << "bytes = " << sent << endl;
                             cout << "sock num: " << remoteSocket[i] << endl;
                             status[i] = 0;
 
-                            cout << "end of ls\n";
+                            cout << "end of get\n";
                             ff.close();
                         }
                         cout << msg << endl;
