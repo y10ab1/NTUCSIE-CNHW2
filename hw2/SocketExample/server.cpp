@@ -9,6 +9,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <sstream>
+
 #include "opencv2/opencv.hpp"
 
 #define BUFF_SIZE 1024

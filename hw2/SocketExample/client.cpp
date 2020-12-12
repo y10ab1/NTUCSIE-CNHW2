@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <sstream>
+
 #include "opencv2/opencv.hpp"
 
 #define BUFF_SIZE 1024
@@ -41,16 +43,17 @@ int main(int argc, char *argv[])
         printf("Fail to create a socket.\n");
         return 0;
     }
-
+    stringstream ss;
+    ss << localSocket;
     string defaultPath = "./";
-    string Client_index = std::to_string(localSocket);
-    string folderPath = defaultPath + "Client_"+Client_index+"_Folder";
+    string Client_index;
+    ss >> Client_index;
+    string folderPath = defaultPath + "Client_" + Client_index + "_Folder";
 
     if (0 != access(folderPath.c_str(), 0))
     {
         // if this folder not exist, create a new one.
-        mkdir(folderPath.c_str(),777);
-        
+        mkdir(folderPath.c_str(), 777);
     }
 
     struct sockaddr_in info;
