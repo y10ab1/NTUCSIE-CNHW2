@@ -31,7 +31,7 @@ int main(int argc, char **argv)
     int localSocket, port = 4097;
     int remoteSocket[100] = {0};
     int fdmax = 0;
-    fd_set master_socks, command_socks;
+    fd_set master_socks, command_socks, time_socks;
     FD_ZERO(&master_socks);
     FD_ZERO(&command_socks);
     int status[100] = {0};
@@ -314,12 +314,23 @@ int main(int argc, char **argv)
                         cout << s << endl;
                         strcpy(msg, s.c_str());
                         bool get = ff.eof();
-                        ff.read(ch,sizeof(ch));
+                        ff.read(ch, sizeof(ch));
+                        tv.tv_sec = 3;
+                        tv.tv_usec = 0;
+                        int newrv = select(localSocket + 1, &master_socks, NULL, NULL, &tv);
+                        if (newrv == 0)
+                        {
+                            cout << "timeout, newrv= " << newrv << endl;
+                            status[i] = 0;
 
-                        if ((get) || (sent = send(remoteSocket[i], ch, sizeof(ch), 0)) < 0)
+                            cout << "end of get\n";
+                            ff.close();
+                            break;
+                        }
+                        else if ((sent = send(remoteSocket[i], ch, sizeof(ch), 0)) < 0)
                         {
 
-                            cerr << "bytes = " << sent<<get << endl;
+                            cerr << "bytes = " << sent << get << endl;
                             cout << "sock num: " << remoteSocket[i] << endl;
                             status[i] = 0;
 
