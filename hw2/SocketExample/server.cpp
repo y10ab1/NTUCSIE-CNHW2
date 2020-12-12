@@ -23,7 +23,7 @@ VideoCapture cap[100];
 Mat imgServer;
 string filename[100];
 int imgSize;
-fstream ff("list.txt", ios::in);
+fstream ff;
 int main(int argc, char **argv)
 {
 
@@ -158,6 +158,7 @@ int main(int argc, char **argv)
                         {
                             cout << "recived: " << receiveMessage << "\n";
                             status[i] = 1;
+                            ff.open("list.txt", ios::in);
                             // sent = send(remoteSocket,Message,strlen(Message),0);
                         }
                         else if (strncmp("play", receiveMessage, 4) == 0)
@@ -249,14 +250,14 @@ int main(int argc, char **argv)
                         string s;
                         char msg[BUFF_SIZE] = {};
 
-                        if (ff >> msg && (sent = send(remoteSocket[i], msg, sizeof(msg), 0)) < 0)
+                        if ((ff >> msg == EOF) || (sent = send(remoteSocket[i], msg, sizeof(msg), 0)) < 0)
                         {
 
                             cerr << "bytes = " << sent << endl;
                             cout << "sock num: " << remoteSocket[i] << endl;
                             status[i] = 0;
 
-                            cout << "end of video\n";
+                            cout << "end of ls\n";
 
                             //send(remoteSocket[i], imgServer.data, imgSize, 0);
                             //break;
