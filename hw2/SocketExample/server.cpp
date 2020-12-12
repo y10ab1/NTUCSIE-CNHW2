@@ -53,8 +53,7 @@ int main(int argc, char **argv)
     if (0 != access(folderPath.c_str(), 0))
     {
         // if this folder not exist, create a new one.
-        mkdir(folderPath.c_str(),777);
-        
+        mkdir(folderPath.c_str(), 0777);
     }
 
     int recved;
