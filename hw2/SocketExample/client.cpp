@@ -228,6 +228,7 @@ int main(int argc, char *argv[])
             command ="rm "+File_path+"1";
             system(command.c_str());
             */
+            ff.close();
         }
         else
         {
