@@ -366,6 +366,8 @@ int main(int argc, char **argv)
                             ff.close();
                         }
                         (countt++);
+                        cerr << "bytes = " << sent << endl;
+                        cout << "get: " << get << endl;
                         cout << "count = " << countt << endl;
                         //cout << ch << endl;
                     }
