@@ -243,6 +243,7 @@ int main(int argc, char **argv)
                             string fs;
                             sn >> fs;
                             send(remoteSocket[i], fs.c_str(), sizeof(fs.c_str()), 0);
+                            sleep(1);
                         }
                         else
                         {

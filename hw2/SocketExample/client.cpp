@@ -204,6 +204,7 @@ int main(int argc, char *argv[])
             recv(localSocket, filesize, BUFF_SIZE, 0);
             long long FILESIZE = atoi(filesize);
             cout << "get filesize: " << FILESIZE << endl;
+            
 
             while (1)
             {
@@ -222,7 +223,7 @@ int main(int argc, char *argv[])
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
                 cout << ch << endl;
-                for (int cnt = 0; /*(ch[cnt] != '\0') &&*/ cnt < 1024 && cnt + cnt_count <= FILESIZE;)
+                for (int cnt = 0; /*(ch[cnt] != '\0') &&*/ cnt < 1024 && cnt + cnt_count < FILESIZE;)
                 {
                     ff.write(&ch[cnt++], 1);
                     ff.flush();
