@@ -204,7 +204,6 @@ int main(int argc, char *argv[])
             recv(localSocket, filesize, BUFF_SIZE, 0);
             long long FILESIZE = atoi(filesize);
             cout << "get filesize: " << FILESIZE << endl;
-            
 
             while (1)
             {
@@ -232,19 +231,9 @@ int main(int argc, char *argv[])
 
                 //ff.write(ch, sizeof(ch));
             }
-            string command = "sed -e 's/\r//g' " + File_path + " > " + File_path + "1";
-            //char *comm[50] = {};
-            /*
-            cout << command << endl;
-            ff.close();
-            system(command.c_str());
-            command ="rm "+File_path;
-            system(command.c_str());
-            command="cp "+File_path+"1 "+File_path;
-            system(command.c_str());
-            command ="rm "+File_path+"1";
-            system(command.c_str());
-            */
+            string command = "chmod 777 " + File_path;
+            system(command);
+
             ff.close();
         }
         else
