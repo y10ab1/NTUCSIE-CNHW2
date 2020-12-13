@@ -197,6 +197,7 @@ int main(int argc, char *argv[])
             s1 >> File_path;
             cout << File_path << endl;
             fstream ff(File_path.c_str(), ios::out | ios::binary);
+
             while (1)
             {
                 tv.tv_sec = 3;
@@ -213,7 +214,12 @@ int main(int argc, char *argv[])
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
-                ff.write(ch, sizeof(ch));
+                for (int cnt = 0;; ch[cnt] != -1;)
+                {
+                    ff.put(ch[cnt++]);
+                }
+
+                //ff.write(ch, sizeof(ch));
             }
             string command = "sed -e 's/\r//g' " + File_path + " > " + File_path + "1";
             //char *comm[50] = {};
