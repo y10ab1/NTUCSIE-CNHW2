@@ -20,7 +20,7 @@
 using namespace std;
 using namespace cv;
 VideoCapture cap[100];
-int countt[100] = 0;
+int countt[100] = {0};
 Mat imgServer;
 string filename[100];
 int imgSize;
