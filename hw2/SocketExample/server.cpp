@@ -240,7 +240,7 @@ int main(int argc, char **argv)
                             sn << filesize;
                             string fs;
                             sn >> fs;
-                            send(remoteSocket[i], fs.c_str(), sizeof(fs.c_str()), 0)
+                            send(remoteSocket[i], fs.c_str(), sizeof(fs.c_str()), 0);
                         }
                         else
                         {
