@@ -324,7 +324,7 @@ int main(int argc, char **argv)
 
                         bool get = 0;
 
-                        if (/*!(ff.eof())*/ ((countt++) * BUFF_SIZE) > filesize)
+                        if (/*!(ff.eof())*/ ((countt++) * BUFF_SIZE) < filesize)
                         {
                             /*for (int k = 0; k < 1024 && (!(ff.eof())); ++k)
                             {

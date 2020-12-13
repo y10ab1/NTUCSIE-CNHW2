@@ -215,7 +215,7 @@ int main(int argc, char *argv[])
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
-                for (int cnt = 0; (ch[cnt] != '\0') && cnt < 1025;)
+                for (int cnt = 0; /*(ch[cnt] != '\0') &&*/ cnt < 1025;)
                 {
                     ff.write(&ch[cnt++], 1);
                     ff.flush();
