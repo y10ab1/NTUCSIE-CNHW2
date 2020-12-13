@@ -20,6 +20,7 @@
 using namespace std;
 using namespace cv;
 VideoCapture cap[100];
+int count = 0;
 Mat imgServer;
 string filename[100];
 int imgSize;
@@ -323,11 +324,10 @@ int main(int argc, char **argv)
                             {
                                 ff.get(ch[k]);
                             }*/
-                            
-                            
-                            //ff.read(ch, BUFF_SIZE);
-                            
-                            ff.get(c);
+
+                            ff.read(ch, BUFF_SIZE);
+
+                            //ff.get(c);
 
                             //ff.read(ch,sizeof(ch));
                             //用get可以一個一個讀，但很久
@@ -352,9 +352,9 @@ int main(int argc, char **argv)
                             ff.close();
                             break;
                         }
-                        else if ((get == 1) || (sent = send(remoteSocket[i], &c, sizeof(c), 0)) < 0)
+                        else if ((sent = send(remoteSocket[i], &c, sizeof(c), MSG_WAITALL)) < 0)
                         {
-
+                            cout << "count = " << (count++) << endl;
                             cerr << "bytes = " << sent << endl;
                             cout << "get: " << get << endl;
                             cout << "sock num: " << remoteSocket[i] << endl;
