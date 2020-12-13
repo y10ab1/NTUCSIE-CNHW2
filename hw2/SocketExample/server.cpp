@@ -352,7 +352,7 @@ int main(int argc, char **argv)
                             ff.close();
                             break;
                         }
-                        else if ((sent = send(remoteSocket[i], &c, sizeof(c), MSG_WAITALL)) < 0)
+                        else if ((sent = send(remoteSocket[i], ch, sizeof(ch), MSG_WAITALL)) < 0)
                         {
                             (countt++);
                             cout << "count = " << countt << endl;
