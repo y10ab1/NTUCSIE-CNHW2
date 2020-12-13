@@ -198,6 +198,10 @@ int main(int argc, char *argv[])
             cout << File_path << endl;
             fstream ff(File_path.c_str(), ios::out | ios::binary);
             //FILE* file=fopen(File_path.c_str(),"wb");
+            sleep(1);
+            char filesize[BUFF_SIZE] = {};
+            recv(localSocket, filesize, BUFF_SIZE, 0);
+            long long FILESIZE = atoi(filesize);
 
             while (1)
             {
@@ -215,9 +219,9 @@ int main(int argc, char *argv[])
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
-                for (int cnt = 0; /*(ch[cnt] != '\0') &&*/ cnt < 1025;)
+                for (int cnt = 0; /*(ch[cnt] != '\0') &&*/ cnt < FILESIZE;)
                 {
-                    ff.write(&ch[cnt++], 1);
+                    ff.write(&ch[(cnt++) / 1025], 1);
                     ff.flush();
                 }
 

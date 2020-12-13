@@ -236,6 +236,11 @@ int main(int argc, char **argv)
                             filesize = ff.tellg();
                             ff.seekg(0, ios::beg);
                             cout << "FILE SIZE= " << filesize << endl;
+                            stringstream sn;
+                            sn << filesize;
+                            string fs;
+                            sn >> fs;
+                            send(remoteSocket[i], fs.c_str(), sizeof(fs.c_str()), 0)
                         }
                         else
                         {
