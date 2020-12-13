@@ -312,7 +312,7 @@ int main(int argc, char **argv)
                         cout << "executing get\n";
                         string s;
                         char msg[BUFF_SIZE] = {};
-                        char ch[BUFF_SIZE] = {};
+                        char ch[BUFF_SIZE + 5] = {};
                         char c;
                         //bool get = getline(ff, s);
 
@@ -354,7 +354,7 @@ int main(int argc, char **argv)
                             ff.close();
                             break;
                         }
-                        else if (get == 1 || (sent = send(remoteSocket[i], ch, sizeof(ch), 0)) < 0)
+                        else if (get == 1 || (sent = send(remoteSocket[i], ch, BUFF_SIZE, 0)) < 0)
                         {
 
                             cerr << "bytes = " << sent << endl;

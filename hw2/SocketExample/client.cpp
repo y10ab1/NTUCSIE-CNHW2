@@ -204,22 +204,22 @@ int main(int argc, char *argv[])
                 tv.tv_sec = 3;
                 tv.tv_usec = 0;
                 int newrv = select(localSocket + 1, &master_socks, NULL, NULL, &tv);
-                char ch[BUFF_SIZE] = {};
+                char ch[BUFF_SIZE + 5] = {};
                 if (newrv == 0)
                 {
                     cout << "timeout, newrv= " << newrv << endl;
 
                     break;
                 }
-                else if ((recved = recv(localSocket, ch, sizeof(ch) /* * BUFF_SIZE*/, 0)) == -1)
+                else if ((recved = recv(localSocket, ch, BUFF_SIZE, 0)) == -1)
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
                 for (int cnt = 0; (ch[cnt] != '\0') && cnt < 1024;)
                 {
                     ff.write(&ch[cnt++], 1);
+                    ff.flush();
                 }
-                ff.flush();
 
                 //ff.write(ch, sizeof(ch));
             }
