@@ -242,7 +242,7 @@ int main(int argc, char **argv)
                             sn[i] << filesize[i];
                             string fs[100];
                             sn[i] >> fs[i];
-                            send(remoteSocket[i], fs.c_str(), sizeof(fs.c_str()), 0);
+                            send(remoteSocket[i], fs[i].c_str(), sizeof(fs[i].c_str()), 0);
                             sleep(1);
                         }
                         else
