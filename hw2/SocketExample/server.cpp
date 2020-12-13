@@ -24,7 +24,7 @@ int countt[100] = {0};
 Mat imgServer;
 string filename[100];
 int imgSize;
-fstream ff[i];
+fstream ff[100];
 long long filesize = 0;
 int main(int argc, char **argv)
 {
@@ -160,7 +160,7 @@ int main(int argc, char **argv)
                         {
                             cout << "recived: " << receiveMessage << "\n";
                             status[i] = 1;
-                            ff.open("list.txt", ios::in);
+                            ff[i].open("list.txt", ios::in);
                             //cout<<ff;
                             // sent = send(remoteSocket,Message,strlen(Message),0);
                         }
@@ -268,7 +268,7 @@ int main(int argc, char **argv)
 
                         string s;
                         char msg[BUFF_SIZE] = {};
-                        ff >> msg;
+                        ff[i] >> msg;
                         if ((msg[0] == '\0') || (sent = send(remoteSocket[i], msg, sizeof(msg), 0)) < 0)
                         {
 
