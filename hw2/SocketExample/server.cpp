@@ -20,7 +20,7 @@
 using namespace std;
 using namespace cv;
 VideoCapture cap[100];
-int count = 0;
+int countt = 0;
 Mat imgServer;
 string filename[100];
 int imgSize;
@@ -354,8 +354,8 @@ int main(int argc, char **argv)
                         }
                         else if ((sent = send(remoteSocket[i], &c, sizeof(c), MSG_WAITALL)) < 0)
                         {
-                            (count++);
-                            cout << "count = " << count << endl;
+                            (countt++);
+                            cout << "count = " << countt << endl;
                             cerr << "bytes = " << sent << endl;
                             cout << "get: " << get << endl;
                             cout << "sock num: " << remoteSocket[i] << endl;
