@@ -24,7 +24,7 @@ int countt[100] = {0};
 Mat imgServer;
 string filename[100];
 int imgSize;
-fstream ff;
+fstream ff[i];
 long long filesize = 0;
 int main(int argc, char **argv)
 {
@@ -236,7 +236,7 @@ int main(int argc, char **argv)
                             ffs.seekg(0, ios::end);
                             filesize = ffs.tellg();
                             ffs.close();
-                            ff.open(receiveMessage, ios::in | ios::binary);
+                            ff[i].open(receiveMessage, ios::in | ios::binary);
                             cout << "FILE SIZE= " << filesize << endl;
                             stringstream sn;
                             sn << filesize;
@@ -330,7 +330,7 @@ int main(int argc, char **argv)
                         //char c;
                         //bool get = getline(ff, s);
 
-                        bool get = 0;
+                        bool get[100] = {0};
 
                         if (/*!(ff.eof())*/ ((countt[i]++) * BUFF_SIZE) < filesize)
                         {
@@ -339,7 +339,7 @@ int main(int argc, char **argv)
                                 ff.get(ch[k]);
                             }*/
 
-                            ff.read(ch[i], BUFF_SIZE);
+                            ff[i].read(ch[i], BUFF_SIZE);
 
                             //ff.get(c);
 
@@ -350,7 +350,7 @@ int main(int argc, char **argv)
                         }
                         else
                         {
-                            get = 1;
+                            get[i] = 1;
                         }
 
                         cout << ch[i] << endl;
@@ -365,10 +365,10 @@ int main(int argc, char **argv)
                             status[i] = 0;
 
                             cout << "end of get\n";
-                            ff.close();
+                            ff[i].close();
                             break;
                         }
-                        else if (get == 1 || (sent = send(remoteSocket[i], ch[i], BUFF_SIZE, 0)) < 0)
+                        else if (get[i] == 1 || (sent = send(remoteSocket[i], ch[i], BUFF_SIZE, 0)) < 0)
                         {
 
                             cerr << "bytes = " << sent << endl;
@@ -381,7 +381,7 @@ int main(int argc, char **argv)
                         }
 
                         cerr << "bytes = " << sent << endl;
-                        cout << "get: " << get << endl;
+                        cout << "get: " << get[i] << endl;
                         cout << "count = " << countt[i] << endl;
                         //cout << ch << endl;
                     }
