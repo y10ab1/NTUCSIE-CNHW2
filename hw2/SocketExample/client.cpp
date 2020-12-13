@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
     info.sin_addr.s_addr = inet_addr("127.0.0.1");
     info.sin_port = htons(port);
 
-    char Message[BUFF_SIZE] = {};
+    
 
     int err = connect(localSocket, (struct sockaddr *)&info, sizeof(info));
     if (err == -1)
@@ -77,6 +77,7 @@ int main(int argc, char *argv[])
 
     while (1)
     {
+        char Message[BUFF_SIZE] = {};
         fd_set master_socks;
         FD_ZERO(&master_socks);
         FD_SET(localSocket, &master_socks);
