@@ -25,6 +25,7 @@ Mat imgServer;
 string filename[100];
 int imgSize;
 fstream ff;
+long long filesize = 0;
 int main(int argc, char **argv)
 {
 
@@ -221,6 +222,7 @@ int main(int argc, char **argv)
                         }
                         else if (strncmp("get", receiveMessage, 3) == 0)
                         {
+                            countt = 0;
                             bzero(receiveMessage, sizeof(char) * BUFF_SIZE);
                             if ((recved = recv(remoteSocket[i], receiveMessage, sizeof(char) * BUFF_SIZE, 0)) < 0)
                             {
@@ -230,6 +232,10 @@ int main(int argc, char **argv)
                             }
                             status[i] = 4;
                             ff.open(receiveMessage, ios::in | ios::binary);
+                            ff.seekg(0, ios::end);
+                            filesize = ff.tellg();
+                            ff.seekg(0, ios::beg);
+                            cout << "FILE SIZE= " << filesize << endl;
                         }
                         else
                         {
@@ -318,7 +324,7 @@ int main(int argc, char **argv)
 
                         bool get = 0;
 
-                        if (!(ff.eof()))
+                        if (/*!(ff.eof())*/ ((countt++) * BUFF_SIZE) > filesize)
                         {
                             /*for (int k = 0; k < 1024 && (!(ff.eof())); ++k)
                             {
@@ -365,7 +371,7 @@ int main(int argc, char **argv)
                             cout << "end of get\n";
                             ff.close();
                         }
-                        (countt++);
+
                         cerr << "bytes = " << sent << endl;
                         cout << "get: " << get << endl;
                         cout << "count = " << countt << endl;
