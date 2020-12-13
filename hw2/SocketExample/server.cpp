@@ -329,7 +329,9 @@ int main(int argc, char **argv)
 
                             //ff.get(c);
 
-                            ff.read(ch,sizeof(ch));
+                            //ff.read(ch,sizeof(ch));
+
+                            ff >> s;
                             //用get可以一個一個讀，但很久
                         }
                         else
@@ -339,7 +341,7 @@ int main(int argc, char **argv)
 
                         //cout << s << endl;
                         //strcpy(ch, s.c_str());
-                        cout << ch << endl;
+                        cout << s << endl;
                         tv.tv_sec = 3;
                         tv.tv_usec = 0;
                         int newrv = select(remoteSocket[i] + 1, NULL, &time_socks, NULL, &tv);
@@ -352,7 +354,7 @@ int main(int argc, char **argv)
                             ff.close();
                             break;
                         }
-                        else if ((sent = send(remoteSocket[i], ch, sizeof(ch), MSG_WAITALL)) < 0)
+                        else if ((sent = send(remoteSocket[i], s.c_str(), sizeof(s.c_str()), 0)) < 0)
                         {
                             (countt++);
                             cout << "count = " << countt << endl;
