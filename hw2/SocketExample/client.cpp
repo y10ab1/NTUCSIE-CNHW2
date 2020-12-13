@@ -214,7 +214,7 @@ int main(int argc, char *argv[])
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
-                for (int cnt = 0;; ch[cnt] != -1;)
+                for (int cnt = 0; ch[cnt] != -1;)
                 {
                     ff.put(ch[cnt++]);
                 }
