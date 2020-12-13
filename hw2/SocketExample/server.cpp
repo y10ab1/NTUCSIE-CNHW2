@@ -318,17 +318,18 @@ int main(int argc, char **argv)
 
                         if (!(ff.eof()))
                         {
-                            for(int k=0;k<1024&&(!(ff.eof()));++k){
+                            for (int k = 0; k < 1024 && (!(ff.eof())); ++k)
+                            {
                                 ff.get(ch[k]);
                             }
                             //ff.read(ch,sizeof(ch));
                             //用get可以一個一個讀，但很久
-                            
-                        }else
+                        }
+                        else
                         {
                             get = 1;
                         }
-                        
+
                         //cout << s << endl;
                         //strcpy(ch, s.c_str());
                         cout << ch << endl;
@@ -344,10 +345,11 @@ int main(int argc, char **argv)
                             ff.close();
                             break;
                         }
-                        else if (get || (sent = send(remoteSocket[i], ch, sizeof(ch), 0)) < 0)
+                        else if ((get == 1) || (sent = send(remoteSocket[i], ch, sizeof(ch), 0)) < 0)
                         {
 
                             cerr << "bytes = " << sent << endl;
+                            cout << "get: " << get << endl;
                             cout << "sock num: " << remoteSocket[i] << endl;
                             status[i] = 0;
 
