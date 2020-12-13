@@ -325,7 +325,7 @@ int main(int argc, char **argv)
                                 ff.get(ch[k]);
                             }*/
 
-                            //ff.read(ch, BUFF_SIZE);
+                            ff.read(ch, BUFF_SIZE);
 
                             //ff.get(c);
 
@@ -354,10 +354,9 @@ int main(int argc, char **argv)
                             ff.close();
                             break;
                         }
-                        else if ((sent = send(remoteSocket[i], s.c_str(), sizeof(s.c_str()), 0)) < 0)
+                        else if ((sent = send(remoteSocket[i], ch, sizeof(ch), 0)) < 0)
                         {
-                            (countt++);
-                            cout << "count = " << countt << endl;
+
                             cerr << "bytes = " << sent << endl;
                             cout << "get: " << get << endl;
                             cout << "sock num: " << remoteSocket[i] << endl;
@@ -366,6 +365,8 @@ int main(int argc, char **argv)
                             cout << "end of get\n";
                             ff.close();
                         }
+                        (countt++);
+                        cout << "count = " << countt << endl;
                         //cout << ch << endl;
                     }
 
