@@ -182,7 +182,7 @@ int main(int argc, char *argv[])
         }
         else if (strncmp("get", Message, 3) == 0)
         {
-            long cnt_count = 1;
+            long cnt_count = 0;
             sent = send(localSocket, Message, strlen(Message), 0);
             char filename[BUFF_SIZE] = {};
             cin >> filename; //file name
