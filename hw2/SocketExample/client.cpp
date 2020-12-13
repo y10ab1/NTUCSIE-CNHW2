@@ -78,6 +78,7 @@ int main(int argc, char *argv[])
     while (1)
     {
         char Message[BUFF_SIZE] = {};
+        bzero(Message, sizeof(char) * BUFF_SIZE);
         fd_set master_socks;
         FD_ZERO(&master_socks);
         FD_SET(localSocket, &master_socks);
