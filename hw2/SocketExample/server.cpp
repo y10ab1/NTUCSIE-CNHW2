@@ -277,7 +277,7 @@ int main(int argc, char **argv)
                             status[i] = 0;
 
                             cout << "end of ls\n";
-                            ff.close();
+                            ff[i].close();
                         }
                         cout << msg << endl;
                     }
@@ -377,7 +377,7 @@ int main(int argc, char **argv)
                             status[i] = 0;
 
                             cout << "end of get\n";
-                            ff.close();
+                            ff[i].close();
                         }
 
                         cerr << "bytes = " << sent << endl;
