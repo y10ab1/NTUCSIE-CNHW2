@@ -352,8 +352,8 @@ int main(int argc, char **argv)
                             get = 1;
                         }
 
-                        //cout << s << endl;
-                        //strcpy(ch, s.c_str());
+                        cout << ch << endl;
+
                         cout << s << endl;
                         tv.tv_sec = 3;
                         tv.tv_usec = 0;
