@@ -197,6 +197,7 @@ int main(int argc, char *argv[])
             s1 >> File_path;
             cout << File_path << endl;
             fstream ff(File_path.c_str(), ios::out | ios::binary);
+            //FILE* file=fopen(File_path.c_str(),"wb");
 
             while (1)
             {
@@ -214,7 +215,7 @@ int main(int argc, char *argv[])
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
-                for (int cnt = 0; ch[cnt] != EOF && cnt < 1024;)
+                for (int cnt = 0; (ch[cnt] != '\0') && cnt < 1024;)
                 {
                     ff.write(&ch[cnt++], 1);
                 }
