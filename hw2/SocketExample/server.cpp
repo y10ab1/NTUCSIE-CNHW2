@@ -325,11 +325,11 @@ int main(int argc, char **argv)
                                 ff.get(ch[k]);
                             }*/
 
-                            ff.read(ch, BUFF_SIZE);
+                            //ff.read(ch, BUFF_SIZE);
 
                             //ff.get(c);
 
-                            //ff.read(ch,sizeof(ch));
+                            ff.read(ch,sizeof(ch));
                             //用get可以一個一個讀，但很久
                         }
                         else
