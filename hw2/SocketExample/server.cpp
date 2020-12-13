@@ -25,7 +25,7 @@ Mat imgServer;
 string filename[100];
 int imgSize;
 fstream ff[100];
-long long filesize[i] = {0};
+long long filesize[100] = {0};
 int main(int argc, char **argv)
 {
 
