@@ -231,10 +231,11 @@ int main(int argc, char **argv)
                                 break;
                             }
                             status[i] = 4;
-                            ff.open(receiveMessage, ios::in | ios::binary);
-                            ff.seekg(0, ios::end);
-                            filesize = ff.tellg();
-                            ff.close();
+                            fstream fs;
+                            fs.open(receiveMessage, ios::in | ios::binary);
+                            fs.seekg(0, ios::end);
+                            filesize = fs.tellg();
+                            fs.close();
                             ff.open(receiveMessage, ios::in | ios::binary);
                             cout << "FILE SIZE= " << filesize << endl;
                             stringstream sn;
