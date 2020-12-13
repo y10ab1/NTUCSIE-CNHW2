@@ -219,6 +219,7 @@ int main(int argc, char *argv[])
                 {
                     ff.write(&ch[cnt++], 1);
                 }
+                ff.flush();
 
                 //ff.write(ch, sizeof(ch));
             }
