@@ -331,7 +331,7 @@ int main(int argc, char **argv)
 
                             //ff.read(ch,sizeof(ch));
 
-                            ff >> s;
+                            //ff >> s;
                             //用get可以一個一個讀，但很久
                         }
                         else
