@@ -25,7 +25,7 @@ Mat imgServer;
 string filename[100];
 int imgSize;
 fstream ff[100];
-long long filesize = 0;
+long long filesize[i] = {0};
 int main(int argc, char **argv)
 {
 
@@ -231,17 +231,17 @@ int main(int argc, char **argv)
                                 break;
                             }
                             status[i] = 4;
-                            fstream ffs;
-                            ffs.open(receiveMessage, ios::in | ios::binary);
-                            ffs.seekg(0, ios::end);
-                            filesize = ffs.tellg();
-                            ffs.close();
+                            fstream ffs[100];
+                            ffs[i].open(receiveMessage, ios::in | ios::binary);
+                            ffs[i].seekg(0, ios::end);
+                            filesize[i] = ffs[i].tellg();
+                            ffs[i].close();
                             ff[i].open(receiveMessage, ios::in | ios::binary);
                             cout << "FILE SIZE= " << filesize << endl;
-                            stringstream sn;
-                            sn << filesize;
-                            string fs;
-                            sn >> fs;
+                            stringstream sn[100];
+                            sn[i] << filesize[i];
+                            string fs[100];
+                            sn[i] >> fs[i];
                             send(remoteSocket[i], fs.c_str(), sizeof(fs.c_str()), 0);
                             sleep(1);
                         }
@@ -332,7 +332,7 @@ int main(int argc, char **argv)
 
                         bool get[100] = {0};
 
-                        if (/*!(ff.eof())*/ ((countt[i]++) * BUFF_SIZE) < filesize)
+                        if (/*!(ff.eof())*/ ((countt[i]++) * BUFF_SIZE) < filesize[i])
                         {
                             /*for (int k = 0; k < 1024 && (!(ff.eof())); ++k)
                             {
@@ -372,7 +372,7 @@ int main(int argc, char **argv)
                         {
 
                             cerr << "bytes = " << sent << endl;
-                            cout << "get: " << get << endl;
+                            cout << "get: " << get[i] << endl;
                             cout << "sock num: " << remoteSocket[i] << endl;
                             status[i] = 0;
 
