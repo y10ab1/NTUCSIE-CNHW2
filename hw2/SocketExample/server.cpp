@@ -235,8 +235,10 @@ int main(int argc, char **argv)
                             ffs[i].open(receiveMessage, ios::in | ios::binary);
                             ffs[i].seekg(0, ios::end);
                             filesize[i] = ffs[i].tellg();
+                            ffs[i].seekg(0, ios::beg);
                             ffs[i].close();
                             ff[i].open(receiveMessage, ios::in | ios::binary);
+                            ff[i].seekg(0, ios::beg);
                             cout << "FILE SIZE= " << filesize[i] << endl;
                             stringstream sn[100];
                             sn[i] << filesize[i];
