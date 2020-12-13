@@ -216,7 +216,7 @@ int main(int argc, char *argv[])
                 }
                 for (int cnt = 0; ch[cnt] != EOF && cnt < 1024;)
                 {
-                    ff.put(ch[cnt++]);
+                    ff.write(ch[cnt++], 1);
                 }
 
                 //ff.write(ch, sizeof(ch));
