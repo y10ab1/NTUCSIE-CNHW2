@@ -354,7 +354,8 @@ int main(int argc, char **argv)
                         }
                         else if ((sent = send(remoteSocket[i], &c, sizeof(c), MSG_WAITALL)) < 0)
                         {
-                            cout << "count = " << (count++) << endl;
+                            (count++);
+                            cout << "count = " << count << endl;
                             cerr << "bytes = " << sent << endl;
                             cout << "get: " << get << endl;
                             cout << "sock num: " << remoteSocket[i] << endl;
