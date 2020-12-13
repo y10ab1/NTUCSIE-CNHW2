@@ -312,6 +312,7 @@ int main(int argc, char **argv)
                         string s;
                         char msg[BUFF_SIZE] = {};
                         char ch[BUFF_SIZE] = {};
+                        char c;
                         //bool get = getline(ff, s);
 
                         bool get = 0;
@@ -322,7 +323,12 @@ int main(int argc, char **argv)
                             {
                                 ff.get(ch[k]);
                             }*/
-                            ff.read(ch, BUFF_SIZE);
+                            
+                            
+                            //ff.read(ch, BUFF_SIZE);
+                            
+                            ff.get(c);
+
                             //ff.read(ch,sizeof(ch));
                             //用get可以一個一個讀，但很久
                         }
@@ -346,7 +352,7 @@ int main(int argc, char **argv)
                             ff.close();
                             break;
                         }
-                        else if ((get == 1) || (sent = send(remoteSocket[i], ch, sizeof(ch), 0)) < 0)
+                        else if ((get == 1) || (sent = send(remoteSocket[i], &c, sizeof(c), 0)) < 0)
                         {
 
                             cerr << "bytes = " << sent << endl;
