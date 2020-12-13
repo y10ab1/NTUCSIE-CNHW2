@@ -182,6 +182,7 @@ int main(int argc, char *argv[])
         }
         else if (strncmp("get", Message, 3) == 0)
         {
+            long cnt_count = 1;
             sent = send(localSocket, Message, strlen(Message), 0);
             char filename[BUFF_SIZE] = {};
             cin >> filename; //file name
@@ -202,6 +203,7 @@ int main(int argc, char *argv[])
             char filesize[BUFF_SIZE] = {};
             recv(localSocket, filesize, BUFF_SIZE, 0);
             long long FILESIZE = atoi(filesize);
+            cout << "get filesize: " << FILESIZE << endl;
 
             while (1)
             {
@@ -219,11 +221,12 @@ int main(int argc, char *argv[])
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
-                for (int cnt = 0; /*(ch[cnt] != '\0') &&*/ cnt < FILESIZE;)
+                for (int cnt = 0; /*(ch[cnt] != '\0') &&*/ cnt < 1025 && cnt * cnt_count < FILESIZE;)
                 {
-                    ff.write(&ch[(cnt++) / 1025], 1);
+                    ff.write(&ch[cnt++], 1);
                     ff.flush();
                 }
+                cnt_count++;
 
                 //ff.write(ch, sizeof(ch));
             }
