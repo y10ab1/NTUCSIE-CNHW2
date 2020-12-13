@@ -232,7 +232,7 @@ int main(int argc, char *argv[])
                 //ff.write(ch, sizeof(ch));
             }
             string command = "chmod 777 " + File_path;
-            system(command);
+            system(command.c_str());
 
             ff.close();
         }
