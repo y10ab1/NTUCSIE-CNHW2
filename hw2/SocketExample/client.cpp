@@ -221,7 +221,7 @@ int main(int argc, char *argv[])
                 {
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
-                for (int cnt = 0; /*(ch[cnt] != '\0') &&*/ cnt < 1024 && cnt + cnt_count < FILESIZE;)
+                for (int cnt = 0; /*(ch[cnt] != '\0') &&*/ cnt < 1024 && cnt + cnt_count <= FILESIZE;)
                 {
                     ff.write(&ch[cnt++], 1);
                     ff.flush();
