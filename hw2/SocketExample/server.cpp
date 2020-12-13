@@ -324,10 +324,10 @@ int main(int argc, char **argv)
                 case 4:
                     /* get */ {
                         cout << "executing get\n";
-                        string s;
-                        char msg[BUFF_SIZE] = {};
-                        char ch[BUFF_SIZE + 5] = {};
-                        char c;
+                        //string s;
+                        //char msg[BUFF_SIZE] = {};
+                        char ch[100][BUFF_SIZE + 5] = {};
+                        //char c;
                         //bool get = getline(ff, s);
 
                         bool get = 0;
@@ -339,7 +339,7 @@ int main(int argc, char **argv)
                                 ff.get(ch[k]);
                             }*/
 
-                            ff.read(ch, BUFF_SIZE);
+                            ff.read(ch[i], BUFF_SIZE);
 
                             //ff.get(c);
 
@@ -353,9 +353,9 @@ int main(int argc, char **argv)
                             get = 1;
                         }
 
-                        cout << ch << endl;
+                        cout << ch[i] << endl;
 
-                        cout << s << endl;
+                        //cout << s << endl;
                         tv.tv_sec = 3;
                         tv.tv_usec = 0;
                         int newrv = select(remoteSocket[i] + 1, NULL, &time_socks, NULL, &tv);
@@ -368,7 +368,7 @@ int main(int argc, char **argv)
                             ff.close();
                             break;
                         }
-                        else if (get == 1 || (sent = send(remoteSocket[i], ch, BUFF_SIZE, 0)) < 0)
+                        else if (get == 1 || (sent = send(remoteSocket[i], ch[i], BUFF_SIZE, 0)) < 0)
                         {
 
                             cerr << "bytes = " << sent << endl;
