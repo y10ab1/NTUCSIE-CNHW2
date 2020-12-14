@@ -231,13 +231,14 @@ int main(int argc, char *argv[])
                     put.close();
                     break;
                 }
-                else if (putt == 1 || (sent = send(localSocket, ch, BUFF_SIZE, 0)) < 0)
+                else if (putt == 1 || ((sent = send(localSocket, ch, BUFF_SIZE, 0)) < 0))
                 {
 
                     cerr << "bytes = " << sent << endl;
                     cout << "put: " << putt << endl;
                     cout << "end of put\n";
                     put.close();
+                    break;
                 }
 
                 cerr << "bytes = " << sent << endl;
