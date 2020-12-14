@@ -187,7 +187,13 @@ int main(int argc, char *argv[])
             fstream getfile;
             string listt = folderPath + "/list.txt";
             cout << listt << endl;
-            mkdir(listt.c_str(), 0777);
+
+            if (access(listt.c_str(), F_OK) < 0)
+            {
+                mkdir(listt.c_str(), 0777);
+                break;
+            }
+
             getfile.open(listt.c_str(), ios::out | ios::in);
             while (1)
             {
