@@ -189,7 +189,7 @@ int main(int argc, char *argv[])
             cout << listt << endl;
 
             ofstream gete(listt.c_str());
-            gete.close;
+            gete.close();
             fstream getfile.open(listt.c_str(), ios::out | ios::in | ios::beg);
             while (1)
             {
