@@ -188,8 +188,9 @@ int main(int argc, char *argv[])
             string listt = folderPath + "/list.txt";
             cout << listt << endl;
 
-            fstream getfile(listt.c_str());
-            getfile.open(listt.c_str(), ios::out | ios::in);
+            ofstream gete(listt.c_str());
+            gete.close;
+            fstream getfile.open(listt.c_str(), ios::out | ios::in | ios::beg);
             while (1)
             {
                 tv.tv_sec = 3;
