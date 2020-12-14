@@ -218,7 +218,7 @@ int main(int argc, char **argv)
 
                             f_put[i].open(file_put[i].c_str(), ios::out | ios::binary);
                             sleep(1);
-                            char ch[100] = {0};
+                            char ch[100][BUFF_SIZE] = {};
                             if ((recved = recv(remoteSocket[i], ch[i], BUFF_SIZE, 0)) < 0)
                             {
                                 cout << "Socket: " << remoteSocket[i] << " i: " << i << " has commands but fail\n";
@@ -329,12 +329,12 @@ int main(int argc, char **argv)
 
                     break;
                 case 3:
-                    /* put */
+                { /* put */
                     cout << "executing put\n";
                     tv.tv_sec = 3;
                     tv.tv_usec = 0;
                     int newrv = select(remoteSocket[i] + 1, &time_socks, NULL, NULL, &tv);
-                    char ch[BUFF_SIZE + 5] = {};
+                    char ch[100][BUFF_SIZE + 5] = {};
                     if (newrv == 0)
                     {
                         cout << "timeout, newrv= " << newrv << endl;
@@ -342,21 +342,23 @@ int main(int argc, char **argv)
                         f_put[i].close();
                         break;
                     }
-                    else if ((recved = recv(remoteSocket[i], ch, BUFF_SIZE, 0)) == -1)
+                    else if ((recved = recv(remoteSocket[i], ch[i], BUFF_SIZE, 0)) == -1)
                     {
                         cerr << "recv failed, received bytes = " << recved << endl;
                         status[i] = 0;
                         f_put[i].close();
                         break;
                     }
-                    cout << ch << endl;
+                    cout << ch[i] << endl;
                     for (int cnt = 0; cnt < 1024 && cnt + cnt_count < PUT_FILESIZE[i];)
                     {
-                        f_put[i].write(&ch[cnt++], 1);
+                        f_put[i].write(&ch[i][cnt++], 1);
                         f_put[i].flush();
                     }
                     cnt_count += 1024;
-                    break;
+                }
+
+                break;
                 case 4:
                     /* get */ {
                         cout << "executing get\n";
