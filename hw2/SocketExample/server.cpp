@@ -226,6 +226,7 @@ int main(int argc, char **argv)
                                 break;
                             }
                             PUT_FILESIZE[i] = atoi(ch[i]);
+                            cout << "FILESIZE is: " << PUT_FILESIZE[i] << endl;
                         }
                         else if (strncmp("get", receiveMessage, 3) == 0)
                         {
