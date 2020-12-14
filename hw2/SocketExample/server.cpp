@@ -28,6 +28,7 @@ fstream ff[100];
 fstream f_put[100];
 long PUT_FILESIZE[100] = {0};
 long long filesize[100] = {0};
+int cnt_count[100] = {0};
 int main(int argc, char **argv)
 {
 
@@ -203,6 +204,7 @@ int main(int argc, char **argv)
                         else if (strncmp("put", receiveMessage, 3) == 0)
                         {
                             status[i] = 3;
+                            cnt_count[i] = 0;
                             char put_filename[100][BUFF_SIZE] = {};
                             bzero(put_filename[i], sizeof(char) * BUFF_SIZE);
                             if ((recved = recv(remoteSocket[i], put_filename[i], sizeof(char) * BUFF_SIZE, 0)) < 0)
@@ -213,7 +215,17 @@ int main(int argc, char **argv)
                             }
                             string file_put[100];
                             file_put[i] = folderPath + "/" + put_filename[i];
+                            
                             f_put[i].open(file_put[i].c_str(), ios::out | ios::binary);
+                            sleep(1);
+                            char ch[100] = {0};
+                            if ((recved = recv(remoteSocket[i], ch[i], BUFF_SIZE, 0)) < 0)
+                            {
+                                cout << "Socket: " << remoteSocket[i] << " i: " << i << " has commands but fail\n";
+                                cout << "recv failed in get, with received bytes = " << recved << endl;
+                                break;
+                            }
+                            PUT_FILESIZE[i] = atoi(ch[i]);
                         }
                         else if (strncmp("get", receiveMessage, 3) == 0)
                         {
@@ -265,7 +277,7 @@ int main(int argc, char **argv)
                 FD_ZERO(&time_socks);
                 FD_SET(remoteSocket[i], &time_socks);
                 /*for put*/
-                int cnt_count[100] = {0};
+
                 cout << "******executing sth******\n";
                 switch (status[i])
                 {
@@ -335,7 +347,7 @@ int main(int argc, char **argv)
                         status[i] = 0;
                     }
                     cout << ch << endl;
-                    for (int cnt = 0; cnt < 1024 && cnt + cnt_count < FILESIZE;)
+                    for (int cnt = 0; cnt < 1024 && cnt + cnt_count < PUT_FILESIZE[i];)
                     {
                         f_put[i].write(&ch[cnt++], 1);
                         f_put[i].flush();

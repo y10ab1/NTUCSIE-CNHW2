@@ -198,6 +198,12 @@ int main(int argc, char *argv[])
             sent = send(localSocket, Message, strlen(Message), 0);
             sleep(1);
             sent = send(localSocket, filename, strlen(filename), 0);
+            sleep(1);
+            string SIZE;
+            stringstream ss;
+            ss << filesize;
+            ss >> SIZE;
+            sent = send(localSocket, SIZE.c_str(), strlen(SIZE.c_str()), 0);
             while (1)
             {
                 char ch[BUFF_SIZE + 5] = {};
