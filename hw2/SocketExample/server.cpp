@@ -230,8 +230,10 @@ int main(int argc, char **argv)
                                 cout << "recv failed in get, with received bytes = " << recved << endl;
                                 break;
                             }
+                            string filee;
+                            filee=folderPath+receiveMessage;
 
-                            if (access(receiveMessage, F_OK) < 0)
+                            if (access(filee.c_str(), F_OK) < 0)
                             {
                                 cout << "The file doesn’t exist." << endl;
                                 break;
