@@ -233,7 +233,7 @@ int main(int argc, char **argv)
 
                             if (access(receiveMessage, F_OK) < 0)
                             {
-                                cout << "The " << receiveMessage << " doesn’t exist." << endl;
+                                cout << "The file doesn’t exist." << endl;
                                 break;
                             }
 
