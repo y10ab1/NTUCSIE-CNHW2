@@ -225,7 +225,7 @@ int main(int argc, char *argv[])
                 int newst = select(localSocket + 1, NULL, &master_socks, NULL, &tv);
                 if (newst == 0)
                 {
-                    cout << "timeout, newrv= " << newrv << endl;
+                    cout << "timeout, newst= " << newst << endl;
 
                     cout << "end of put\n";
                     put.close();
