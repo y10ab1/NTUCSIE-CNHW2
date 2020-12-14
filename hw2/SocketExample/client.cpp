@@ -217,9 +217,11 @@ int main(int argc, char *argv[])
             bool file_doesnt_exist = 0;
             while (getfile >> tmp)
             {
-                if (strncmp(filename, tmp.c_str(), sizeof(tmp)))
+                cout << tmp << endl;
+                if (!strncmp(filename, tmp.c_str(), sizeof(tmp)))
                 {
                     file_doesnt_exist = 1;
+                    break;
                 }
             }
             getfile.seekg(0, ios::beg);
@@ -230,7 +232,6 @@ int main(int argc, char *argv[])
                 continue;
             }
 
-            
             stringstream ss, s1, s2;
             ss << filename;
             string filename_tmp;
