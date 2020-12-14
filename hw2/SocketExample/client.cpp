@@ -185,7 +185,8 @@ int main(int argc, char *argv[])
             /*check filename with ls*/
             sent = send(localSocket, "ls", strlen("ls"), 0);
             fstream getfile;
-            getfile.open("list.txt", ios::out | ios::in);
+            string listt = folderPath + "/list.txt";
+            getfile.open(listt.c_str(), ios::out | ios::in);
             while (1)
             {
                 tv.tv_sec = 3;
@@ -218,7 +219,7 @@ int main(int argc, char *argv[])
             while (getfile >> tmp)
             {
                 cout << tmp << endl;
-                if (!strncmp(filename, tmp.c_str(), sizeof(tmp)))
+                if (strncmp(filename, tmp.c_str(), sizeof(tmp.c_str())) != 0)
                 {
                     file_doesnt_exist = 1;
                     break;
