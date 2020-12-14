@@ -231,7 +231,8 @@ int main(int argc, char **argv)
                                 break;
                             }
                             string filee;
-                            filee=folderPath+receiveMessage;
+                            filee = folderPath + receiveMessage;
+                            cout << filee << endl;
 
                             if (access(filee.c_str(), F_OK) < 0)
                             {
