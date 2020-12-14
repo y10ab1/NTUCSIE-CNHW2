@@ -343,7 +343,7 @@ int main(int argc, char **argv)
                         f_put[i].close();
                         break;
                     }
-                    else if ((recved = recv(remoteSocket[i], ch[i], BUFF_SIZE, 0)) == -1)
+                    else if ((recved = recv(remoteSocket[i], ch[i], BUFF_SIZE, MSG_WAITALL)) == -1)
                     {
                         cerr << "recv failed, received bytes = " << recved << endl;
                         status[i] = 0;
