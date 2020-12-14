@@ -215,7 +215,7 @@ int main(int argc, char **argv)
                             }
                             string file_put[100];
                             file_put[i] = folderPath + "/" + put_filename[i];
-                            
+
                             f_put[i].open(file_put[i].c_str(), ios::out | ios::binary);
                             sleep(1);
                             char ch[100] = {0};
@@ -339,12 +339,15 @@ int main(int argc, char **argv)
                     {
                         cout << "timeout, newrv= " << newrv << endl;
                         status[i] = 0;
+                        f_put[i].close();
                         break;
                     }
                     else if ((recved = recv(remoteSocket[i], ch, BUFF_SIZE, 0)) == -1)
                     {
                         cerr << "recv failed, received bytes = " << recved << endl;
                         status[i] = 0;
+                        f_put[i].close();
+                        break;
                     }
                     cout << ch << endl;
                     for (int cnt = 0; cnt < 1024 && cnt + cnt_count < PUT_FILESIZE[i];)
