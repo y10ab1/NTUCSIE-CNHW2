@@ -224,7 +224,7 @@ int main(int argc, char *argv[])
             if (file_doesnt_exist)
             {
                 cout << "The " << filename << " doesn’t exist." << endl;
-                break;
+                continue;
             }
 
             sleep(1);
