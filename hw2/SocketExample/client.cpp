@@ -66,8 +66,6 @@ int main(int argc, char *argv[])
     info.sin_addr.s_addr = inet_addr("127.0.0.1");
     info.sin_port = htons(port);
 
-    
-
     int err = connect(localSocket, (struct sockaddr *)&info, sizeof(info));
     if (err == -1)
     {
@@ -184,10 +182,51 @@ int main(int argc, char *argv[])
         }
         else if (strncmp("get", Message, 3) == 0)
         {
+            /*check filename with ls*/
+            sent = send(localSocket, "ls", strlen("ls"), 0);
+            fstream getfile;
+            getfile.open("list.txt", ios::out | ios::in);
+            while (1)
+            {
+                tv.tv_sec = 3;
+                tv.tv_usec = 0;
+                int newrv = select(localSocket + 1, &master_socks, NULL, NULL, &tv);
+                if (newrv == 0)
+                {
+                    cout << "timeout, newrv= " << newrv << endl;
+
+                    break;
+                }
+                else if ((recved = recv(localSocket, receiveMessage, sizeof(char) * BUFF_SIZE, 0)) == -1)
+                {
+                    cerr << "recv failed, received bytes = " << recved << endl;
+                }
+
+                getfile << receiveMessage << endl;
+            }
+
             long cnt_count = 0;
             sent = send(localSocket, Message, strlen(Message), 0);
             char filename[BUFF_SIZE] = {};
             cin >> filename; //file name
+            getfile.seekg(0, ios::beg);
+            string tmp;
+            bool file_doesnt_exist = 0;
+            while (getfile >> tmp)
+            {
+                if (strncmp(filename, tmp.c_str(), sizeof(tmp)))
+                {
+                    file_doesnt_exist = 1;
+                }
+            }
+            getfile.seekg(0, ios::beg);
+            getfile.close();
+            if (file_doesnt_exist)
+            {
+                cout << "The " << filename << " doesn’t exist." << endl;
+                break;
+            }
+
             sleep(1);
             sent = send(localSocket, filename, strlen(filename), 0);
             stringstream ss, s1, s2;
@@ -200,7 +239,7 @@ int main(int argc, char *argv[])
             s1 >> File_path;
             cout << File_path << endl;
             fstream ff(File_path.c_str(), ios::out | ios::binary);
-            //FILE* file=fopen(File_path.c_str(),"wb");
+
             sleep(1);
             char filesize[BUFF_SIZE] = {};
             recv(localSocket, filesize, BUFF_SIZE, 0);

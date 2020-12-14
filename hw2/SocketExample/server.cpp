@@ -230,6 +230,13 @@ int main(int argc, char **argv)
                                 cout << "recv failed in get, with received bytes = " << recved << endl;
                                 break;
                             }
+
+                            if (access(receiveMessage, F_OK) < 0)
+                            {
+                                cout << "The " << receiveMessage << " doesn’t exist." << endl;
+                                break;
+                            }
+
                             status[i] = 4;
                             fstream ffs[100];
                             ffs[i].open(receiveMessage, ios::in | ios::binary);
@@ -279,6 +286,7 @@ int main(int argc, char **argv)
                             status[i] = 0;
 
                             cout << "end of ls\n";
+                            ff[i].seekg(0, ios::beg);
                             ff[i].close();
                         }
                         cout << msg << endl;
@@ -289,10 +297,9 @@ int main(int argc, char **argv)
                     /* play */
 
                     cout << "executing play:\n";
-                    //cout << "Socket: " << remoteSocket[i] << " i: " << i << "\n";
+
                     cap[i] >> imgServer;
-                    //cout << sizeof(imgServer.data) << imgSize;
-                    //cout << imgServer.data << endl;
+
                     struct timeval timeout;
                     timeout.tv_sec = 3;
                     timeout.tv_usec = 0;
@@ -306,17 +313,7 @@ int main(int argc, char **argv)
                         status[i] = 0;
                         cap[i].release();
                         cout << "end of video\n";
-
-                        //send(remoteSocket[i], imgServer.data, imgSize, 0);
-                        //break;
-                    } /*
-                    if (imgServer.empty())
-                    {
-                        status[i] = 0;
-                        cap[i].release();
-                        cout << "end of video\n";
-                    }*/
-                    //cout << "sent bytes: " << sent << endl;
+                    }
 
                     break;
                 case 3:
@@ -330,11 +327,10 @@ int main(int argc, char **argv)
                         //char msg[BUFF_SIZE] = {};
                         char ch[100][BUFF_SIZE + 5] = {};
                         //char c;
-                        //bool get = getline(ff, s);
 
                         bool get[100] = {0};
 
-                        if (/*!(ff.eof())*/ ((countt[i]++) * BUFF_SIZE) < filesize[i])
+                        if (((countt[i]++) * BUFF_SIZE) < filesize[i])
                         {
                             /*for (int k = 0; k < 1024 && (!(ff.eof())); ++k)
                             {
@@ -343,11 +339,6 @@ int main(int argc, char **argv)
 
                             ff[i].read(ch[i], BUFF_SIZE);
 
-                            //ff.get(c);
-
-                            //ff.read(ch,sizeof(ch));
-
-                            //ff >> s;
                             //用get可以一個一個讀，但很久
                         }
                         else
