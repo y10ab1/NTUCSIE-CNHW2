@@ -161,8 +161,6 @@ int main(int argc, char **argv)
                             cout << "recived: " << receiveMessage << "\n";
                             status[i] = 1;
                             ff[i].open("list.txt", ios::in);
-                            //cout<<ff;
-                            // sent = send(remoteSocket,Message,strlen(Message),0);
                         }
                         else if (strncmp("play", receiveMessage, 4) == 0)
                         {
@@ -219,9 +217,9 @@ int main(int argc, char **argv)
                         else if (strncmp("put", receiveMessage, 3) == 0)
                         {
                             status[i] = 3;
-                            char put_file[100][BUFF_SIZE] = {};
-                            bzero(put_file[i], sizeof(char) * BUFF_SIZE);
-                            if ((recved = recv(remoteSocket[i], put_file[i], sizeof(char) * BUFF_SIZE, 0)) < 0)
+                            char put_filename[100][BUFF_SIZE] = {};
+                            bzero(put_filename[i], sizeof(char) * BUFF_SIZE);
+                            if ((recved = recv(remoteSocket[i], put_filename[i], sizeof(char) * BUFF_SIZE, 0)) < 0)
                             {
                                 cout << "Socket: " << remoteSocket[i] << " i: " << i << " has commands but fail\n";
                                 cout << "recv failed in get, with received bytes = " << recved << endl;
@@ -344,14 +342,8 @@ int main(int argc, char **argv)
 
                         if (((countt[i]++) * BUFF_SIZE) < filesize[i])
                         {
-                            /*for (int k = 0; k < 1024 && (!(ff.eof())); ++k)
-                            {
-                                ff.get(ch[k]);
-                            }*/
 
                             ff[i].read(ch[i], BUFF_SIZE);
-
-                            //用get可以一個一個讀，但很久
                         }
                         else
                         {

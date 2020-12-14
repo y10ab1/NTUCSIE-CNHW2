@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
         {
             int QUIT = 0;
 
-                        string filename;
+            string filename;
             cin >> filename; //video file name
             if (filename.find(".mpg") == string::npos)
             {
@@ -252,14 +252,9 @@ int main(int argc, char *argv[])
             sleep(1);
             sent = send(localSocket, filename, strlen(filename), 0);
 
-            stringstream ss, s1, s2;
-            ss << filename;
-            string filename_tmp;
-            ss >> filename_tmp;
-            s1 << (folderPath + "/" + filename_tmp);
-            char file_path[BUFF_SIZE] = {};
             string File_path;
-            s1 >> File_path;
+            File_path = (folderPath + "/" + filename);
+
             cout << File_path << endl;
             fstream ff(File_path.c_str(), ios::out | ios::binary);
 
@@ -286,14 +281,13 @@ int main(int argc, char *argv[])
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
                 cout << ch << endl;
-                for (int cnt = 0; /*(ch[cnt] != '\0') &&*/ cnt < 1024 && cnt + cnt_count < FILESIZE;)
+                for (int cnt = 0;  cnt < 1024 && cnt + cnt_count < FILESIZE;)
                 {
                     ff.write(&ch[cnt++], 1);
                     ff.flush();
                 }
                 cnt_count += 1024;
 
-                //ff.write(ch, sizeof(ch));
             }
             string command = "chmod 777 " + File_path;
             system(command.c_str());
