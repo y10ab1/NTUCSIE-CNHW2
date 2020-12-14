@@ -19,6 +19,8 @@
 using namespace std;
 using namespace cv;
 
+int countt = 0;
+
 int main(int argc, char *argv[])
 {
 
@@ -178,16 +180,66 @@ int main(int argc, char *argv[])
             char filename[BUFF_SIZE] = {};
             cin >> filename; //file name
             string file_put = folderPath + "/" + filename;
+            int filesize = 0;
 
             if (access(file_put.c_str(), F_OK) < 0)
             {
                 cout << "The " << file_put << " doesn’t exist." << endl;
                 continue;
             }
+            else
+            {
+                fstream put(file_put.c_str(), ios::in | ios::binary);
+                put.seekg(0, ios::end);
+                filesize = put.tellg();
+                put.seekg(0, ios::beg);
+            }
 
             sent = send(localSocket, Message, strlen(Message), 0);
             sleep(1);
             sent = send(localSocket, filename, strlen(filename), 0);
+            while (1)
+            {
+                char ch[BUFF_SIZE + 5] = {};
+
+                bool putt = 0;
+
+                if (((countt++) * BUFF_SIZE) < filesize)
+                {
+
+                    put.read(ch, BUFF_SIZE);
+                }
+                else
+                {
+                    putt = 1;
+                }
+
+                cout << ch << endl;
+
+                tv.tv_sec = 3;
+                tv.tv_usec = 0;
+                int newst = select(localSocket + 1, NULL, &master_socks, NULL, &tv);
+                if (newst == 0)
+                {
+                    cout << "timeout, newrv= " << newrv << endl;
+
+                    cout << "end of put\n";
+                    put.close();
+                    break;
+                }
+                else if (putt == 1 || (sent = send(localSocket, ch, BUFF_SIZE, 0)) < 0)
+                {
+
+                    cerr << "bytes = " << sent << endl;
+                    cout << "put: " << putt << endl;
+                    cout << "end of put\n";
+                    put.close();
+                }
+
+                cerr << "bytes = " << sent << endl;
+                cout << "put: " << putt << endl;
+                cout << "count = " << countt << endl;
+            }
         }
         else if (strncmp("get", Message, 3) == 0)
         {
@@ -281,13 +333,12 @@ int main(int argc, char *argv[])
                     cerr << "recv failed, received bytes = " << recved << endl;
                 }
                 cout << ch << endl;
-                for (int cnt = 0;  cnt < 1024 && cnt + cnt_count < FILESIZE;)
+                for (int cnt = 0; cnt < 1024 && cnt + cnt_count < FILESIZE;)
                 {
                     ff.write(&ch[cnt++], 1);
                     ff.flush();
                 }
                 cnt_count += 1024;
-
             }
             string command = "chmod 777 " + File_path;
             system(command.c_str());

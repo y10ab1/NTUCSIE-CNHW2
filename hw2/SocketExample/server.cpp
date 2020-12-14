@@ -25,6 +25,8 @@ Mat imgServer;
 string filename[100];
 int imgSize;
 fstream ff[100];
+fstream f_put[100];
+long PUT_FILESIZE[100] = {0};
 long long filesize[100] = {0};
 int main(int argc, char **argv)
 {
@@ -168,13 +170,11 @@ int main(int argc, char **argv)
 
                             // server
 
-                            //Mat imgServer;
                             bzero(receiveMessage, sizeof(char) * BUFF_SIZE);
 
                             recv(remoteSocket[i], receiveMessage, sizeof(char) * BUFF_SIZE, 0);
                             cout << "videoname: " << receiveMessage << "\n";
-                            //cap[i].open("./tmp.mpg");
-                            //filename[i]=receiveMessage;
+
                             cap[i].open(receiveMessage);
 
                             // get the resolution of the video
@@ -199,20 +199,6 @@ int main(int argc, char **argv)
                             {
                                 imgServer = imgServer.clone();
                             }
-                            /*
-                            while (1)
-                            {
-                                //get a frame from the video to the container on server.
-                                cap >> imgServer;
-
-                                if ((sent = send(remoteSocket, imgServer.data, imgSize, 0)) < 0)
-                                {
-                                    cerr << "bytes = " << sent << endl;
-
-                                    break;
-                                }
-                                cout << "sent bytes: " << sent << endl;
-                            }*/
                         }
                         else if (strncmp("put", receiveMessage, 3) == 0)
                         {
@@ -226,6 +212,8 @@ int main(int argc, char **argv)
                                 break;
                             }
                             string file_put[100];
+                            file_put[i] = folderPath + "/" + put_filename[i];
+                            f_put[i].open(file_put[i].c_str(), ios::out | ios::binary);
                         }
                         else if (strncmp("get", receiveMessage, 3) == 0)
                         {
@@ -276,6 +264,8 @@ int main(int argc, char **argv)
             {
                 FD_ZERO(&time_socks);
                 FD_SET(remoteSocket[i], &time_socks);
+                /*for put*/
+                int cnt_count[100] = {0};
                 cout << "******executing sth******\n";
                 switch (status[i])
                 {
@@ -329,14 +319,34 @@ int main(int argc, char **argv)
                 case 3:
                     /* put */
                     cout << "executing put\n";
+                    tv.tv_sec = 3;
+                    tv.tv_usec = 0;
+                    int newrv = select(remoteSocket[i] + 1, &time_socks, NULL, NULL, &tv);
+                    char ch[BUFF_SIZE + 5] = {};
+                    if (newrv == 0)
+                    {
+                        cout << "timeout, newrv= " << newrv << endl;
+                        status[i] = 0;
+                        break;
+                    }
+                    else if ((recved = recv(remoteSocket[i], ch, BUFF_SIZE, 0)) == -1)
+                    {
+                        cerr << "recv failed, received bytes = " << recved << endl;
+                        status[i] = 0;
+                    }
+                    cout << ch << endl;
+                    for (int cnt = 0; cnt < 1024 && cnt + cnt_count < FILESIZE;)
+                    {
+                        f_put[i].write(&ch[cnt++], 1);
+                        f_put[i].flush();
+                    }
+                    cnt_count += 1024;
                     break;
                 case 4:
                     /* get */ {
                         cout << "executing get\n";
-                        //string s;
-                        //char msg[BUFF_SIZE] = {};
+
                         char ch[100][BUFF_SIZE + 5] = {};
-                        //char c;
 
                         bool get[100] = {0};
 
@@ -352,7 +362,6 @@ int main(int argc, char **argv)
 
                         cout << ch[i] << endl;
 
-                        //cout << s << endl;
                         tv.tv_sec = 3;
                         tv.tv_usec = 0;
                         int newrv = select(remoteSocket[i] + 1, NULL, &time_socks, NULL, &tv);
@@ -380,7 +389,6 @@ int main(int argc, char **argv)
                         cerr << "bytes = " << sent << endl;
                         cout << "get: " << get[i] << endl;
                         cout << "count = " << countt[i] << endl;
-                        //cout << ch << endl;
                     }
 
                     break;
