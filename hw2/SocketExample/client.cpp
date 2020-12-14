@@ -190,7 +190,7 @@ int main(int argc, char *argv[])
 
             ofstream gete(listt.c_str());
             gete.close();
-            fstream getfile.open(listt.c_str(), ios::out | ios::in | ios::beg);
+            fstream getfile(listt.c_str(), ios::out | ios::in | ios::beg);
             while (1)
             {
                 tv.tv_sec = 3;
