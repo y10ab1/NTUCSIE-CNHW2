@@ -187,13 +187,11 @@ int main(int argc, char *argv[])
                 cout << "The " << file_put << " doesn’t exist." << endl;
                 continue;
             }
-            else
-            {
-                fstream put(file_put.c_str(), ios::in | ios::binary);
-                put.seekg(0, ios::end);
-                filesize = put.tellg();
-                put.seekg(0, ios::beg);
-            }
+
+            fstream put(file_put.c_str(), ios::in | ios::binary);
+            put.seekg(0, ios::end);
+            filesize = put.tellg();
+            put.seekg(0, ios::beg);
 
             sent = send(localSocket, Message, strlen(Message), 0);
             sleep(1);
