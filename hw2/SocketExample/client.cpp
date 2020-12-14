@@ -114,8 +114,14 @@ int main(int argc, char *argv[])
             sent = send(localSocket, Message, strlen(Message), MSG_WAITALL);
             bzero(Message, sizeof(char) * BUFF_SIZE);
             sleep(1);
-            cin >> Message; //video file name
-            sent = send(localSocket, Message, strlen(Message), MSG_WAITALL);
+            string filename;
+            cin >> filename; //video file name
+            if (filename.find(".mpg") == string::npos)
+            {
+                cout << "The " << filename << " is not a mpg file." << endl;
+                continue;
+            }
+            sent = send(localSocket, filename.c_str(), strlen(filename.c_str()), MSG_WAITALL);
 
             // get the resolution of the video
             Mat imgClient;
@@ -163,20 +169,22 @@ int main(int argc, char *argv[])
                 //Press ESC on keyboard to exit
                 // notice: this part is necessary due to openCV's design.
                 // waitKey means a delay to get the next frame.
-                //char c = (char)waitKey(33.3333);
-                /*if (waitKey(33.3333) == 27)
-                {
-                    destroyAllWindows();
-                    break;
-                }*/
             }
-            //send(localSocket, (void *)QUIT, sizeof(QUIT), 0);
         }
         else if (strncmp("put", Message, 3) == 0)
         {
-            sent = send(localSocket, Message, strlen(Message), 0);
+
             char filename[BUFF_SIZE] = {};
             cin >> filename; //file name
+            string file_put = folderPath + "/" + filename;
+
+            if (access(file_put.c_str(), F_OK) < 0)
+            {
+                cout << "The " << file_put << " doesn’t exist." << endl;
+                continue;
+            }
+
+            sent = send(localSocket, Message, strlen(Message), 0);
             sleep(1);
             sent = send(localSocket, filename, strlen(filename), 0);
         }

@@ -219,6 +219,15 @@ int main(int argc, char **argv)
                         else if (strncmp("put", receiveMessage, 3) == 0)
                         {
                             status[i] = 3;
+                            char put_file[BUFF_SIZE] = {};
+                            bzero(put_file[i], sizeof(char) * BUFF_SIZE);
+                            if ((recved = recv(remoteSocket[i], put_file[i], sizeof(char) * BUFF_SIZE, 0)) < 0)
+                            {
+                                cout << "Socket: " << remoteSocket[i] << " i: " << i << " has commands but fail\n";
+                                cout << "recv failed in get, with received bytes = " << recved << endl;
+                                break;
+                            }
+                            string file_put[100];
                         }
                         else if (strncmp("get", receiveMessage, 3) == 0)
                         {
@@ -230,11 +239,11 @@ int main(int argc, char **argv)
                                 cout << "recv failed in get, with received bytes = " << recved << endl;
                                 break;
                             }
-                            string filee;
-                            filee = folderPath +"/"+ receiveMessage;
-                            cout << filee << endl;
+                            string filee[100];
+                            filee[i] = folderPath + "/" + receiveMessage;
+                            cout << filee[i] << endl;
 
-                            if (access(filee.c_str(), F_OK) < 0)
+                            if (access(filee[i].c_str(), F_OK) < 0)
                             {
                                 cout << "The file doesn’t exist." << endl;
                                 break;
