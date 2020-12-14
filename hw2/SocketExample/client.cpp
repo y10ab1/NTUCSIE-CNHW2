@@ -186,6 +186,7 @@ int main(int argc, char *argv[])
             sent = send(localSocket, "ls", strlen("ls"), 0);
             fstream getfile;
             string listt = folderPath + "/list.txt";
+            cout << listt << endl;
             getfile.open(listt.c_str(), ios::out | ios::in);
             while (1)
             {
@@ -207,12 +208,10 @@ int main(int argc, char *argv[])
             }
 
             long cnt_count = 0;
-            sent = send(localSocket, Message, strlen(Message), 0);
+
             char filename[BUFF_SIZE] = {};
             cin >> filename; //file name
 
-            sleep(1);
-            sent = send(localSocket, filename, strlen(filename), 0);
             getfile.seekg(0, ios::beg);
             string tmp;
             bool file_doesnt_exist = 0;
@@ -232,6 +231,10 @@ int main(int argc, char *argv[])
                 cout << "The " << filename << " doesn’t exist." << endl;
                 continue;
             }
+
+            sent = send(localSocket, Message, strlen(Message), 0);
+            sleep(1);
+            sent = send(localSocket, filename, strlen(filename), 0);
 
             stringstream ss, s1, s2;
             ss << filename;
