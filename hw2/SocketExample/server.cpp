@@ -115,7 +115,7 @@ int main(int argc, char **argv)
 
         for (int i = 0; i <= fdmax; i++)
         {
-            if (FD_ISSET(i, &command_socks))
+            if (FD_ISSET(i, &command_socks) && status[i] != 3)
             {
                 cout << "i: " << i << " has command\n";
                 if (i == localSocket)
@@ -277,7 +277,6 @@ int main(int argc, char **argv)
             {
                 FD_ZERO(&time_socks);
                 FD_SET(remoteSocket[i], &time_socks);
-                /*for put*/
 
                 cout << "******executing sth******\n";
                 switch (status[i])
@@ -332,6 +331,7 @@ int main(int argc, char **argv)
                 case 3:
                 { /* put */
                     cout << "executing put\n";
+
                     tv.tv_sec = 3;
                     tv.tv_usec = 0;
                     int newrv = select(remoteSocket[i] + 1, &time_socks, NULL, NULL, &tv);
@@ -351,7 +351,7 @@ int main(int argc, char **argv)
                         break;
                     }
                     cout << ch[i] << endl;
-                    for (int cnt = 0; cnt < 1024 && cnt + cnt_count[i] < PUT_FILESIZE[i];)
+                    for (int cnt = 0; cnt < 1024 && ((cnt + cnt_count[i]) < PUT_FILESIZE[i]);)
                     {
                         f_put[i].write(&ch[i][cnt++], 1);
                         f_put[i].flush();
