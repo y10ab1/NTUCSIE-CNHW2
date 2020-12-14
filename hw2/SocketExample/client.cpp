@@ -111,16 +111,17 @@ int main(int argc, char *argv[])
         {
             int QUIT = 0;
 
-            sent = send(localSocket, Message, strlen(Message), MSG_WAITALL);
-            bzero(Message, sizeof(char) * BUFF_SIZE);
-            sleep(1);
-            string filename;
+                        string filename;
             cin >> filename; //video file name
             if (filename.find(".mpg") == string::npos)
             {
                 cout << "The " << filename << " is not a mpg file." << endl;
                 continue;
             }
+
+            sent = send(localSocket, Message, strlen(Message), MSG_WAITALL);
+            bzero(Message, sizeof(char) * BUFF_SIZE);
+            sleep(1);
             sent = send(localSocket, filename.c_str(), strlen(filename.c_str()), MSG_WAITALL);
 
             // get the resolution of the video
