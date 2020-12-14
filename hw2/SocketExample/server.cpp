@@ -219,7 +219,7 @@ int main(int argc, char **argv)
                         else if (strncmp("put", receiveMessage, 3) == 0)
                         {
                             status[i] = 3;
-                            char put_file[BUFF_SIZE] = {};
+                            char put_file[100][BUFF_SIZE] = {};
                             bzero(put_file[i], sizeof(char) * BUFF_SIZE);
                             if ((recved = recv(remoteSocket[i], put_file[i], sizeof(char) * BUFF_SIZE, 0)) < 0)
                             {
