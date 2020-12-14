@@ -218,19 +218,19 @@ int main(int argc, char *argv[])
 
             getfile.seekg(0, ios::beg);
             string tmp;
-            bool file_doesnt_exist = 0;
+            bool file_exist = 1;
             while (getfile >> tmp)
             {
                 cout << tmp << endl;
-                if (strncmp(filename, tmp.c_str(), sizeof(tmp.c_str())) != 0)
+                if (strncmp(filename, tmp.c_str(), sizeof(tmp.c_str())) == 0)
                 {
-                    file_doesnt_exist = 1;
+                    file_exist = 0;
                     break;
                 }
             }
             getfile.seekg(0, ios::beg);
             getfile.close();
-            if (file_doesnt_exist)
+            if (file_exist)
             {
                 cout << "The " << filename << " doesn’t exist." << endl;
                 continue;
