@@ -209,6 +209,9 @@ int main(int argc, char *argv[])
             sent = send(localSocket, Message, strlen(Message), 0);
             char filename[BUFF_SIZE] = {};
             cin >> filename; //file name
+
+            sleep(1);
+            sent = send(localSocket, filename, strlen(filename), 0);
             getfile.seekg(0, ios::beg);
             string tmp;
             bool file_doesnt_exist = 0;
@@ -227,8 +230,7 @@ int main(int argc, char *argv[])
                 continue;
             }
 
-            sleep(1);
-            sent = send(localSocket, filename, strlen(filename), 0);
+            
             stringstream ss, s1, s2;
             ss << filename;
             string filename_tmp;
