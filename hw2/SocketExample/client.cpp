@@ -236,6 +236,9 @@ int main(int argc, char *argv[])
                 continue;
             }
 
+            FD_ZERO(&master_socks);
+            FD_SET(localSocket, &master_socks);
+
             sent = send(localSocket, Message, strlen(Message), 0);
             sleep(1);
             sent = send(localSocket, filename, strlen(filename), 0);
