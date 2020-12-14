@@ -184,12 +184,12 @@ int main(int argc, char *argv[])
         {
             /*check filename with ls*/
             sent = send(localSocket, "ls", strlen("ls"), 0);
-            
+
             string listt = folderPath + "/list.txt";
             cout << listt << endl;
 
-            
-            fstream getfile(listt.c_str(), ios::out | ios::in);
+            fstream getfile(listt.c_str());
+            getfile.open(listt.c_str(), ios::out | ios::in);
             while (1)
             {
                 tv.tv_sec = 3;
