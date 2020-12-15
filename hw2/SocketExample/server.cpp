@@ -353,6 +353,7 @@ int main(int argc, char **argv)
                         cout << "end of put\n";
                         break;
                     }
+                    cout << "cnt_count: " << cnt_count << endl;
                     cout << ch[i] << endl;
                     for (int cnt = 0; cnt < 1024 && ((cnt + cnt_count[i]) < PUT_FILESIZE[i]);)
                     {
