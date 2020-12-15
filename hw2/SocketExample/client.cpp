@@ -20,6 +20,8 @@ using namespace std;
 using namespace cv;
 
 int countt = 0;
+string IP;
+string PORT;
 
 int main(int argc, char *argv[])
 {
@@ -37,7 +39,11 @@ int main(int argc, char *argv[])
     }
     else
     {
-        port = atoi(argv[1]);
+        string IPPORT(argv[1]);
+        int sep = IPPORT.find(':', 0);
+        IP = IPPORT.substr(0, sep);
+        PORT = IPPORT.substr(sep + 1, IPPORT.size() - sep);
+        port = atoi(PORT.c_str());
     }
 
     localSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -65,7 +71,7 @@ int main(int argc, char *argv[])
     bzero(&info, sizeof(info));
 
     info.sin_family = PF_INET;
-    info.sin_addr.s_addr = inet_addr("127.0.0.1");
+    info.sin_addr.s_addr = inet_addr(IP.c_str());
     info.sin_port = htons(port);
 
     int err = connect(localSocket, (struct sockaddr *)&info, sizeof(info));
@@ -184,7 +190,7 @@ int main(int argc, char *argv[])
 
             if (access(file_put.c_str(), F_OK) < 0)
             {
-                cout << "The " << file_put << " doesn’t exist." << endl;
+                cout << "The " << filename << " doesn’t exist." << endl;
                 continue;
             }
 
