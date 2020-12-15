@@ -218,7 +218,7 @@ int main(int argc, char *argv[])
                     putt = 1;
                 }
 
-                cout << ch << endl;
+                //cout << ch << endl;
 
                 tv.tv_sec = 3;
                 tv.tv_usec = 0;
@@ -233,7 +233,7 @@ int main(int argc, char *argv[])
                 }
                 else if (putt == 1 || ((sent = send(localSocket, ch, BUFF_SIZE, 0)) < 0))
                 {
-
+                    cout << ch << endl;
                     cerr << "bytes = " << sent << endl;
                     cout << "put: " << putt << endl;
                     cout << "end of put\n";

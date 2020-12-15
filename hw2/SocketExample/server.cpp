@@ -334,20 +334,23 @@ int main(int argc, char **argv)
 
                     tv.tv_sec = 3;
                     tv.tv_usec = 0;
-                    int newrv = select(remoteSocket[i] + 1, &time_socks, NULL, NULL, &tv);
+                    int newrv = select(fdmax + 1, &time_socks, NULL, NULL, &tv);
                     char ch[100][BUFF_SIZE + 5] = {};
+                    bool end = 0;
                     if (newrv == 0)
                     {
                         cout << "timeout, newrv= " << newrv << endl;
                         status[i] = 0;
                         f_put[i].close();
+                        cout << "end of put\n";
                         break;
                     }
-                    else if ((recved = recv(remoteSocket[i], ch[i], BUFF_SIZE, MSG_WAITALL)) == -1)
+                    else if ((recved = recv(remoteSocket[i], ch[i], BUFF_SIZE, 0)) == -1)
                     {
-                        cerr << "recv failed, received bytes = " << recved << endl;
+                        cerr << "recv failed or end, received bytes = " << recved << endl;
                         status[i] = 0;
                         f_put[i].close();
+                        cout << "end of put\n";
                         break;
                     }
                     cout << ch[i] << endl;
@@ -355,6 +358,10 @@ int main(int argc, char **argv)
                     {
                         f_put[i].write(&ch[i][cnt++], 1);
                         f_put[i].flush();
+                        if ((cnt + cnt_count[i]) == PUT_FILESIZE[i] - 1)
+                        {
+                            end = 1;
+                        }
                     }
                     cnt_count[i] += 1024;
                 }
