@@ -233,18 +233,20 @@ int main(int argc, char *argv[])
                 }
                 else if (putt == 1 || ((sent = send(localSocket, ch, BUFF_SIZE, 0)) < 0))
                 {
-                    cout << ch << endl;
+
                     cerr << "bytes = " << sent << endl;
                     cout << "put: " << putt << endl;
                     cout << "end of put\n";
                     put.close();
                     break;
                 }
-
+                cout << ch << endl;
                 cerr << "bytes = " << sent << endl;
                 cout << "put: " << putt << endl;
                 cout << "count = " << countt << endl;
             }
+            put.seekg(0, ios::beg);
+            put.close();
         }
         else if (strncmp("get", Message, 3) == 0)
         {
