@@ -254,6 +254,7 @@ int main(int argc, char *argv[])
             }
             put.seekg(0, ios::beg);
             put.close();
+	    countt=0;
         }
         else if (strncmp("get", Message, 3) == 0)
         {

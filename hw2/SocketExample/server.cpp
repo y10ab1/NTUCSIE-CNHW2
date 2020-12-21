@@ -176,7 +176,13 @@ int main(int argc, char **argv)
                             recv(remoteSocket[i], receiveMessage, sizeof(char) * BUFF_SIZE, 0);
                             cout << "videoname: " << receiveMessage << "\n";
 
-                            cap[i].open(receiveMessage);
+                            string filee[100];
+                            filee[i] = folderPath + "/" + receiveMessage;
+                            cout << filee[i] << endl;
+
+
+
+                            cap[i].open(filee[i].c_str());
 
                             // get the resolution of the video
                             int width = cap[i].get(CV_CAP_PROP_FRAME_WIDTH);
@@ -250,12 +256,12 @@ int main(int argc, char **argv)
 
                             status[i] = 4;
                             fstream ffs[100];
-                            ffs[i].open(receiveMessage, ios::in | ios::binary);
+                            ffs[i].open(filee[i].c_str(), ios::in | ios::binary);
                             ffs[i].seekg(0, ios::end);
                             filesize[i] = ffs[i].tellg();
                             ffs[i].seekg(0, ios::beg);
                             ffs[i].close();
-                            ff[i].open(receiveMessage, ios::in | ios::binary);
+                            ff[i].open(filee[i].c_str(), ios::in | ios::binary);
                             ff[i].seekg(0, ios::beg);
                             cout << "FILE SIZE= " << filesize[i] << endl;
                             stringstream sn[100];
