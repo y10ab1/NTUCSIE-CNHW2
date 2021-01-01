@@ -14,12 +14,12 @@
 
 #include "opencv2/opencv.hpp"
 
-#define BUFF_SIZE 1024
+#define BUFF_SIZE 16384
 
 using namespace std;
 using namespace cv;
 
-int countt = 0;
+long long countt = 0;
 string IP;
 string PORT;
 
@@ -186,7 +186,7 @@ int main(int argc, char *argv[])
             char filename[BUFF_SIZE] = {};
             cin >> filename; //file name
             string file_put = folderPath + "/" + filename;
-            int filesize = 0;
+            long long filesize = 0;
 
             if (access(file_put.c_str(), F_OK) < 0)
             {

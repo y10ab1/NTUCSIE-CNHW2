@@ -15,20 +15,20 @@
 
 #include "opencv2/opencv.hpp"
 
-#define BUFF_SIZE 1024
+#define BUFF_SIZE 16384
 
 using namespace std;
 using namespace cv;
 VideoCapture cap[100];
-int countt[100] = {0};
+long long countt[100] = {0};
 Mat imgServer;
 string filename[100];
 int imgSize;
 fstream ff[100];
 fstream f_put[100];
-long PUT_FILESIZE[100] = {0};
+long long PUT_FILESIZE[100] = {0};
 long long filesize[100] = {0};
-int cnt_count[100] = {0};
+long long cnt_count[100] = {0};
 int main(int argc, char **argv)
 {
 
@@ -340,7 +340,7 @@ int main(int argc, char **argv)
 
                     tv.tv_sec = 3;
                     tv.tv_usec = 0;
-                    int newrv = select(fdmax + 1, &time_socks, NULL, NULL, &tv);
+                    long long newrv = select(fdmax + 1, &time_socks, NULL, NULL, &tv);
                     char ch[100][BUFF_SIZE + 5] = {};
                     bool end[100] = {0};
                     if (newrv == 0)
@@ -361,16 +361,16 @@ int main(int argc, char **argv)
                     }
                     cout << "cnt_count: " << cnt_count[i] << endl;
                     cout << ch[i] << endl;
-                    for (int cnt = 0; cnt < 1024 && ((cnt + cnt_count[i]) < PUT_FILESIZE[i]);)
+                    for (long long cnt = 0; cnt < BUFF_SIZE && ((cnt + cnt_count[i]) < PUT_FILESIZE[i]);)
                     {
                         f_put[i].write(&ch[i][cnt++], 1);
                         f_put[i].flush();
-                        if ((cnt + cnt_count[i]) == PUT_FILESIZE[i] - 1)
+                        if ((cnt + cnt_count[i]) >= PUT_FILESIZE[i] - 1)
                         {
                             end[i] = 1;
                         }
                     }
-                    cnt_count[i] += 1024;
+                    cnt_count[i] += BUFF_SIZE;
                 }
 
                 break;
